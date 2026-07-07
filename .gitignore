@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+.venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Environment
+.env
+
+# Raw data (large files)
+data/raw/*.csv
+
+# Keep documentation
+!data/data_sources.md
+
+# Temporary outputs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db

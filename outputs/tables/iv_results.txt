@@ -1,0 +1,85 @@
+================================================================================
+ IV ANALYSIS RESULTS (2SLS)
+================================================================================
+
+FIRST STAGE:
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                Muslims   R-squared:                       0.243
+Model:                            OLS   Adj. R-squared:                  0.225
+Method:                 Least Squares   F-statistic:                     13.67
+Date:                Mon, 06 Jul 2026   Prob (F-statistic):           8.65e-08
+Time:                        15:55:22   Log-Likelihood:                -653.78
+No. Observations:                 132   AIC:                             1316.
+Df Residuals:                     128   BIC:                             1327.
+Df Model:                           3                                         
+Covariance Type:            nonrobust                                         
+=====================================================================================
+                        coef    std err          t      P>|t|      [0.025      0.975]
+-------------------------------------------------------------------------------------
+const                85.8862     44.914      1.912      0.058      -2.983     174.756
+latitude             -0.2642      0.141     -1.873      0.063      -0.543       0.015
+distance_to_mecca    -5.8850      0.956     -6.155      0.000      -7.777      -3.993
+log_gdp              -0.6635      1.782     -0.372      0.710      -4.188       2.862
+==============================================================================
+Omnibus:                       25.502   Durbin-Watson:                   1.821
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):               11.754
+Skew:                           0.538   Prob(JB):                      0.00280
+Kurtosis:                       2.010   Cond. No.                         593.
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+F-statistic: 13.67
+
+SECOND STAGE (2SLS):
+                          IV2SLS Regression Results                           
+==============================================================================
+Dep. Variable:                Muslims   R-squared:                     -10.246
+Model:                         IV2SLS   Adj. R-squared:                -10.332
+Method:                     Two Stage   F-statistic:                    0.7183
+                        Least Squares   Prob (F-statistic):              0.398
+Date:                Mon, 06 Jul 2026                                         
+Time:                        15:55:22                                         
+No. Observations:                 132                                         
+Df Residuals:                     130                                         
+Df Model:                           1                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const      -1748.2529   2090.496     -0.836      0.405   -5884.049    2387.543
+log_gdp       67.9098     80.128      0.848      0.398     -90.613     226.433
+==============================================================================
+Omnibus:                        0.630   Durbin-Watson:                   1.858
+Prob(Omnibus):                  0.730   Jarque-Bera (JB):                0.340
+Skew:                          -0.105   Prob(JB):                        0.844
+Kurtosis:                       3.135   Cond. No.                         382.
+==============================================================================
+
+OLS (for comparison):
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                log_co2   R-squared:                       0.245
+Model:                            OLS   Adj. R-squared:                  0.233
+Method:                 Least Squares   F-statistic:                     26.19
+Date:                Mon, 06 Jul 2026   Prob (F-statistic):           2.85e-10
+Time:                        15:55:22   Log-Likelihood:                -211.76
+No. Observations:                 132   AIC:                             429.5
+Df Residuals:                     129   BIC:                             438.2
+Df Model:                           2                                         
+Covariance Type:                  HC3                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         -8.8623      1.602     -5.531      0.000     -12.003      -5.722
+Muslims       -0.0024      0.003     -0.915      0.360      -0.008       0.003
+log_gdp        0.3782      0.059      6.360      0.000       0.262       0.495
+==============================================================================
+Omnibus:                        0.341   Durbin-Watson:                   2.125
+Prob(Omnibus):                  0.843   Jarque-Bera (JB):                0.499
+Skew:                          -0.082   Prob(JB):                        0.779
+Kurtosis:                       2.748   Cond. No.                         787.
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC3)

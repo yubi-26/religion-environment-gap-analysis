@@ -1,0 +1,58 @@
+=== 回帰分析結果 ===
+
+分析対象国数: 156
+
+モデル1: Muslims → CO2_per_capita
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:         co2_per_capita   R-squared:                       0.003
+Model:                            OLS   Adj. R-squared:                 -0.003
+Method:                 Least Squares   F-statistic:                    0.5007
+Date:                Mon, 06 Jul 2026   Prob (F-statistic):              0.480
+Time:                        19:27:53   Log-Likelihood:                -486.79
+No. Observations:                 156   AIC:                             977.6
+Df Residuals:                     154   BIC:                             983.7
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const          4.2135      0.547      7.697      0.000       3.132       5.295
+Muslims        0.0082      0.012      0.708      0.480      -0.015       0.031
+==============================================================================
+Omnibus:                      104.511   Durbin-Watson:                   2.171
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              620.247
+Skew:                           2.526   Prob(JB):                    2.07e-135
+Kurtosis:                      11.360   Cond. No.                         58.6
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+モデル2: Muslims + log(GDP) → CO2_per_capita
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:         co2_per_capita   R-squared:                       0.123
+Model:                            OLS   Adj. R-squared:                  0.112
+Method:                 Least Squares   F-statistic:                     10.73
+Date:                Mon, 06 Jul 2026   Prob (F-statistic):           4.34e-05
+Time:                        19:27:53   Log-Likelihood:                -476.81
+No. Observations:                 156   AIC:                             959.6
+Df Residuals:                     153   BIC:                             968.8
+Df Model:                           2                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const        -20.9679      5.532     -3.790      0.000     -31.896     -10.039
+Muslims        0.0103      0.011      0.943      0.347      -0.011       0.032
+log_gdp        0.9842      0.215      4.572      0.000       0.559       1.409
+==============================================================================
+Omnibus:                      114.309   Durbin-Watson:                   2.235
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              850.484
+Skew:                           2.724   Prob(JB):                    2.09e-185
+Kurtosis:                      13.058   Cond. No.                         667.
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
