@@ -1,0 +1,287 @@
+Muslim人口数 vs 割合：比較分析（完全版）
+======================================================================
+
+Model 1: Muslim % only
+----------------------------------------
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:          log_total_co2   R-squared:                       0.000
+Model:                            OLS   Adj. R-squared:                 -0.006
+Method:                 Least Squares   F-statistic:                   0.02372
+Date:                Tue, 07 Jul 2026   Prob (F-statistic):              0.878
+Time:                        16:45:44   Log-Likelihood:                -334.41
+No. Observations:                 156   AIC:                             672.8
+Df Residuals:                     154   BIC:                             678.9
+Df Model:                           1                                         
+Covariance Type:                  HC3                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         17.0166      0.208     81.856      0.000      16.609      17.424
+Muslims        0.0007      0.004      0.154      0.878      -0.008       0.009
+==============================================================================
+Omnibus:                        0.281   Durbin-Watson:                   1.752
+Prob(Omnibus):                  0.869   Jarque-Bera (JB):                0.304
+Skew:                           0.100   Prob(JB):                        0.859
+Kurtosis:                       2.917   Cond. No.                         58.6
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC3)
+
+Model 2: Muslim pop only
+----------------------------------------
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:          log_total_co2   R-squared:                       0.129
+Model:                            OLS   Adj. R-squared:                  0.123
+Method:                 Least Squares   F-statistic:                     26.68
+Date:                Tue, 07 Jul 2026   Prob (F-statistic):           7.32e-07
+Time:                        16:45:44   Log-Likelihood:                -323.68
+No. Observations:                 156   AIC:                             651.4
+Df Residuals:                     154   BIC:                             657.5
+Df Model:                           1                                         
+Covariance Type:                  HC3                                         
+=========================================================================================
+                            coef    std err          z      P>|z|      [0.025      0.975]
+-----------------------------------------------------------------------------------------
+const                    14.3908      0.507     28.396      0.000      13.397      15.384
+log_muslim_population     0.2070      0.040      5.166      0.000       0.128       0.286
+==============================================================================
+Omnibus:                        0.248   Durbin-Watson:                   1.773
+Prob(Omnibus):                  0.883   Jarque-Bera (JB):                0.363
+Skew:                          -0.085   Prob(JB):                        0.834
+Kurtosis:                       2.836   Cond. No.                         49.5
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC3)
+
+Model 3: % + GDP + Energy
+----------------------------------------
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:          log_total_co2   R-squared:                       0.335
+Model:                            OLS   Adj. R-squared:                  0.321
+Method:                 Least Squares   F-statistic:                     38.57
+Date:                Tue, 07 Jul 2026   Prob (F-statistic):           1.36e-18
+Time:                        16:45:44   Log-Likelihood:                -302.65
+No. Observations:                 156   AIC:                             613.3
+Df Residuals:                     152   BIC:                             625.5
+Df Model:                           3                                         
+Covariance Type:                  HC3                                         
+============================================================================================
+                               coef    std err          z      P>|z|      [0.025      0.975]
+--------------------------------------------------------------------------------------------
+const                        6.1572      1.230      5.005      0.000       3.746       8.568
+Muslims                      0.0087      0.003      2.590      0.010       0.002       0.015
+log_gdp_per_capita           1.1759      0.141      8.329      0.000       0.899       1.453
+energy_per_capita_scaled    -0.0083      0.005     -1.596      0.110      -0.018       0.002
+==============================================================================
+Omnibus:                        4.102   Durbin-Watson:                   1.873
+Prob(Omnibus):                  0.129   Jarque-Bera (JB):                4.045
+Skew:                           0.228   Prob(JB):                        0.132
+Kurtosis:                       3.643   Cond. No.                         571.
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC3)
+
+Model 4: Muslim pop + GDP + Energy
+----------------------------------------
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:          log_total_co2   R-squared:                       0.505
+Model:                            OLS   Adj. R-squared:                  0.496
+Method:                 Least Squares   F-statistic:                     43.96
+Date:                Tue, 07 Jul 2026   Prob (F-statistic):           1.64e-20
+Time:                        16:45:44   Log-Likelihood:                -279.51
+No. Observations:                 156   AIC:                             567.0
+Df Residuals:                     152   BIC:                             579.2
+Df Model:                           3                                         
+Covariance Type:                  HC3                                         
+============================================================================================
+                               coef    std err          z      P>|z|      [0.025      0.975]
+--------------------------------------------------------------------------------------------
+const                        2.3326      1.467      1.590      0.112      -0.542       5.207
+log_muslim_population        0.2591      0.037      7.030      0.000       0.187       0.331
+log_gdp_per_capita           1.2665      0.138      9.208      0.000       0.997       1.536
+energy_per_capita_scaled    -0.0114      0.004     -2.960      0.003      -0.019      -0.004
+==============================================================================
+Omnibus:                        5.736   Durbin-Watson:                   1.895
+Prob(Omnibus):                  0.057   Jarque-Bera (JB):                5.282
+Skew:                           0.411   Prob(JB):                       0.0713
+Kurtosis:                       3.372   Cond. No.                         500.
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC3)
+
+Model 5: % + GDP + Energy + Oil
+----------------------------------------
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:          log_total_co2   R-squared:                       0.335
+Model:                            OLS   Adj. R-squared:                  0.321
+Method:                 Least Squares   F-statistic:                     38.57
+Date:                Tue, 07 Jul 2026   Prob (F-statistic):           1.36e-18
+Time:                        16:45:44   Log-Likelihood:                -302.65
+No. Observations:                 156   AIC:                             613.3
+Df Residuals:                     152   BIC:                             625.5
+Df Model:                           3                                         
+Covariance Type:                  HC3                                         
+============================================================================================
+                               coef    std err          z      P>|z|      [0.025      0.975]
+--------------------------------------------------------------------------------------------
+const                        6.1572      1.230      5.005      0.000       3.746       8.568
+Muslims                      0.0087      0.003      2.590      0.010       0.002       0.015
+log_gdp_per_capita           1.1759      0.141      8.329      0.000       0.899       1.453
+energy_per_capita_scaled    -0.0083      0.005     -1.596      0.110      -0.018       0.002
+oil_exporter                      0          0        nan        nan           0           0
+==============================================================================
+Omnibus:                        4.102   Durbin-Watson:                   1.873
+Prob(Omnibus):                  0.129   Jarque-Bera (JB):                4.045
+Skew:                           0.228   Prob(JB):                        0.132
+Kurtosis:                       3.643   Cond. No.                          inf
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC3)
+[2] The smallest eigenvalue is      0. This might indicate that there are
+strong multicollinearity problems or that the design matrix is singular.
+
+Model 6: % + GDP + Energy + Region FE
+----------------------------------------
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:          log_total_co2   R-squared:                       0.492
+Model:                            OLS   Adj. R-squared:                  0.465
+Method:                 Least Squares   F-statistic:                     23.09
+Date:                Tue, 07 Jul 2026   Prob (F-statistic):           1.35e-22
+Time:                        16:45:44   Log-Likelihood:                -281.53
+No. Observations:                 156   AIC:                             581.1
+Df Residuals:                     147   BIC:                             608.5
+Df Model:                           8                                         
+Covariance Type:                  HC3                                         
+============================================================================================
+                               coef    std err          z      P>|z|      [0.025      0.975]
+--------------------------------------------------------------------------------------------
+const                       11.2152      1.801      6.227      0.000       7.685      14.745
+Muslims                      0.0011      0.004      0.261      0.794      -0.007       0.009
+log_gdp_per_capita           0.7836      0.197      3.985      0.000       0.398       1.169
+energy_per_capita_scaled    -0.0086      0.005     -1.793      0.073      -0.018       0.001
+Europe                      -1.4729      0.457     -3.222      0.001      -2.369      -0.577
+Latin America-Caribbean     -1.3912      0.491     -2.832      0.005      -2.354      -0.428
+Middle East-North Africa    -0.4314      0.382     -1.128      0.259      -1.181       0.318
+North America                2.2595      1.329      1.701      0.089      -0.345       4.864
+Sub-Saharan Africa          -2.3713      0.500     -4.739      0.000      -3.352      -1.391
+==============================================================================
+Omnibus:                        2.757   Durbin-Watson:                   1.866
+Prob(Omnibus):                  0.252   Jarque-Bera (JB):                2.295
+Skew:                           0.270   Prob(JB):                        0.317
+Kurtosis:                       3.246   Cond. No.                         796.
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC3)
+
+Model 7: Muslim pop + Pop + GDP + Energy
+----------------------------------------
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:          log_total_co2   R-squared:                       0.927
+Model:                            OLS   Adj. R-squared:                  0.925
+Method:                 Least Squares   F-statistic:                     664.7
+Date:                Tue, 07 Jul 2026   Prob (F-statistic):           9.90e-95
+Time:                        16:45:44   Log-Likelihood:                -130.22
+No. Observations:                 156   AIC:                             270.4
+Df Residuals:                     151   BIC:                             285.7
+Df Model:                           4                                         
+Covariance Type:                  HC3                                         
+============================================================================================
+                               coef    std err          z      P>|z|      [0.025      0.975]
+--------------------------------------------------------------------------------------------
+const                       -8.5678      0.630    -13.600      0.000      -9.802      -7.333
+log_muslim_population        0.0010      0.017      0.057      0.955      -0.032       0.034
+log_population               1.0144      0.034     30.116      0.000       0.948       1.080
+log_gdp_per_capita           0.9668      0.070     13.732      0.000       0.829       1.105
+energy_per_capita_scaled     0.0054      0.003      1.937      0.053   -6.48e-05       0.011
+==============================================================================
+Omnibus:                        7.686   Durbin-Watson:                   2.000
+Prob(Omnibus):                  0.021   Jarque-Bera (JB):                8.438
+Skew:                           0.381   Prob(JB):                       0.0147
+Kurtosis:                       3.847   Cond. No.                         630.
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC3)
+
+Model 8: % + Pop + GDP + Energy
+----------------------------------------
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:          log_total_co2   R-squared:                       0.930
+Model:                            OLS   Adj. R-squared:                  0.928
+Method:                 Least Squares   F-statistic:                     613.1
+Date:                Tue, 07 Jul 2026   Prob (F-statistic):           3.14e-92
+Time:                        16:45:44   Log-Likelihood:                -127.43
+No. Observations:                 156   AIC:                             264.9
+Df Residuals:                     151   BIC:                             280.1
+Df Model:                           4                                         
+Covariance Type:                  HC3                                         
+============================================================================================
+                               coef    std err          z      P>|z|      [0.025      0.975]
+--------------------------------------------------------------------------------------------
+const                       -8.8310      0.669    -13.205      0.000     -10.142      -7.520
+Muslims                      0.0029      0.001      2.373      0.018       0.001       0.005
+log_population               1.0069      0.026     38.351      0.000       0.955       1.058
+log_gdp_per_capita           1.0037      0.069     14.523      0.000       0.868       1.139
+energy_per_capita_scaled     0.0045      0.003      1.700      0.089      -0.001       0.010
+==============================================================================
+Omnibus:                       15.718   Durbin-Watson:                   1.992
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):               21.303
+Skew:                           0.597   Prob(JB):                     2.37e-05
+Kurtosis:                       4.361   Cond. No.                         774.
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC3)
+
+Model 9: % + Oil + GDP + Energy + Region FE
+----------------------------------------
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:          log_total_co2   R-squared:                       0.492
+Model:                            OLS   Adj. R-squared:                  0.465
+Method:                 Least Squares   F-statistic:                     23.09
+Date:                Tue, 07 Jul 2026   Prob (F-statistic):           1.35e-22
+Time:                        16:45:44   Log-Likelihood:                -281.53
+No. Observations:                 156   AIC:                             581.1
+Df Residuals:                     147   BIC:                             608.5
+Df Model:                           8                                         
+Covariance Type:                  HC3                                         
+============================================================================================
+                               coef    std err          z      P>|z|      [0.025      0.975]
+--------------------------------------------------------------------------------------------
+const                       11.2152      1.801      6.227      0.000       7.685      14.745
+Muslims                      0.0011      0.004      0.261      0.794      -0.007       0.009
+log_gdp_per_capita           0.7836      0.197      3.985      0.000       0.398       1.169
+energy_per_capita_scaled    -0.0086      0.005     -1.793      0.073      -0.018       0.001
+oil_exporter              5.333e-15   9.28e-16      5.745      0.000    3.51e-15    7.15e-15
+Europe                      -1.4729      0.457     -3.222      0.001      -2.369      -0.577
+Latin America-Caribbean     -1.3912      0.491     -2.832      0.005      -2.354      -0.428
+Middle East-North Africa    -0.4314      0.382     -1.128      0.259      -1.181       0.318
+North America                2.2595      1.329      1.701      0.089      -0.345       4.864
+Sub-Saharan Africa          -2.3713      0.500     -4.739      0.000      -3.352      -1.391
+==============================================================================
+Omnibus:                        2.757   Durbin-Watson:                   1.866
+Prob(Omnibus):                  0.252   Jarque-Bera (JB):                2.295
+Skew:                           0.270   Prob(JB):                        0.317
+Kurtosis:                       3.246   Cond. No.                     2.91e+19
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC3)
+[2] The smallest eigenvalue is 5.09e-34. This might indicate that there are
+strong multicollinearity problems or that the design matrix is singular.
+
