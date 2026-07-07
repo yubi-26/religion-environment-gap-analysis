@@ -1,90 +1,100 @@
+"""
+回帰分析スクリプト
+Religion-Environment Gap Analysis
+"""
+
 import pandas as pd
 import numpy as np
 import statsmodels.api as sm
-import statsmodels.formula.api as smf
-import matplotlib.pyplot as plt
-import seaborn as sns
+from statsmodels.stats.outliers_influence import variance_inflation_factor
 
-print("=== 回帰分析開始 ===")
+print("=" * 60)
+print("回帰分析開始")
+print("=" * 60)
 
-# データ読み込み
+# ========================================
+# 1. データ読み込み
+# ========================================
 df = pd.read_csv('data/processed/merged_2020.csv')
-
 print(f"データ形状: {df.shape}")
 
-# 数値カラムに変換
-df['Muslims'] = df['Muslims'].astype(float)
+# カラム名を確認
+print(f"カラム一覧: {df.columns.tolist()}")
 
-# 欠損値の確認
-print("\n=== 欠損値確認 ===")
-print(f"Muslims 欠損: {df['Muslims'].isnull().sum()}")
-print(f"co2_per_capita 欠損: {df['co2_per_capita'].isnull().sum()}")
-print(f"gdp 欠損: {df['gdp'].isnull().sum()}")
+# ========================================
+# 2. 変数定義（実際のカラム名に合わせる）
+# ========================================
+religion_cols = ['Muslims', 'Christians', 'Buddhists', 'Hindus']
 
-# 分析に使うカラムを選択
-analysis_df = df[['Muslims', 'co2_per_capita', 'gdp']].copy()
+# 対数変換
+df['log_gdp'] = np.log(df['gdp'])
+df['log_co2'] = np.log(df['co2_per_capita'].replace(0, np.nan))
 
-# 欠損値を含む行を削除（リストワイズ削除）
-analysis_df = analysis_df.dropna()
+# ========================================
+# 3. 欠損値処理
+# ========================================
+analysis_cols = religion_cols + ['log_gdp', 'log_co2']
+df_clean = df[analysis_cols].dropna()
+print(f"欠損除去後のデータ数: {len(df_clean)}")
 
-print(f"\n欠損値除去後のデータ数: {len(analysis_df)}")
+# ========================================
+# 4. OLS回帰
+# ========================================
+X = sm.add_constant(df_clean[religion_cols + ['log_gdp']])
+y = df_clean['log_co2']
 
-# 1. 単回帰分析：Muslims → CO2_per_capita
-X1 = sm.add_constant(analysis_df['Muslims'])
-y = analysis_df['co2_per_capita']
+model = sm.OLS(y, X).fit(cov_type='HC3')
 
-model1 = sm.OLS(y, X1).fit()
-print("\n=== モデル1: Muslims → CO2_per_capita ===")
-print(model1.summary())
+print("\n" + "=" * 60)
+print("OLS回帰結果")
+print("=" * 60)
+print(model.summary())
 
-# 2. 重回帰分析：Muslims + log(GDP) → CO2_per_capita
-analysis_df['log_gdp'] = np.log(analysis_df['gdp'])
+# ========================================
+# 5. VIF（多重共線性チェック）
+# ========================================
+print("\n" + "=" * 60)
+print("VIF（多重共線性チェック）")
+print("=" * 60)
 
-X2 = sm.add_constant(analysis_df[['Muslims', 'log_gdp']])
-model2 = sm.OLS(y, X2).fit()
-print("\n=== モデル2: Muslims + log(GDP) → CO2_per_capita ===")
-print(model2.summary())
+vif_data = sm.add_constant(df_clean[religion_cols + ['log_gdp']]).dropna()
+for i, col in enumerate(vif_data.columns):
+    if col != 'const':
+        vif = variance_inflation_factor(vif_data.values, i)
+        print(f"{col}: {vif:.2f}")
 
-# 3. 回帰式を使った予測
-print("\n=== モデル2の解釈 ===")
-print(f"定数項: {model2.params['const']:.4f}")
-print(f"Muslims係数: {model2.params['Muslims']:.4f} (p={model2.pvalues['Muslims']:.4f})")
-print(f"log(GDP)係数: {model2.params['log_gdp']:.4f} (p={model2.pvalues['log_gdp']:.4f})")
-print(f"R²: {model2.rsquared:.4f}")
+# ========================================
+# 6. 結果要約
+# ========================================
+print("\n" + "=" * 60)
+print("結果要約")
+print("=" * 60)
+print(f"R-squared: {model.rsquared:.4f}")
+print(f"Adj. R-squared: {model.rsquared_adj:.4f}")
+print(f"サンプル数: {int(model.nobs)}")
 
-# 散布図の作成
-fig, axes = plt.subplots(1, 3, figsize=(15, 5))
+print("\n【各変数の係数と有意性】")
+for var in ['Muslims', 'Christians', 'Buddhists', 'Hindus', 'log_gdp']:
+    if var in model.params.index:
+        p_val = model.pvalues[var]
+        sig = "***" if p_val < 0.001 else "**" if p_val < 0.01 else "*" if p_val < 0.05 else ""
+        print(f"{var}: 係数={model.params[var]:.4f}, p値={p_val:.4f} {sig}")
 
-# Muslim vs CO2
-axes[0].scatter(analysis_df['Muslims'], analysis_df['co2_per_capita'], alpha=0.6)
-axes[0].set_xlabel('Muslim Population (%)')
-axes[0].set_ylabel('CO2 per capita (tons)')
-axes[0].set_title('Muslims vs CO2')
+print("\n" + "=" * 60)
+print("回帰分析完了")
+print("=" * 60)
 
-# log(GDP) vs CO2
-axes[1].scatter(analysis_df['log_gdp'], analysis_df['co2_per_capita'], alpha=0.6)
-axes[1].set_xlabel('log(GDP)')
-axes[1].set_ylabel('CO2 per capita (tons)')
-axes[1].set_title('log(GDP) vs CO2')
+# 結果をファイルに保存
+with open('outputs/tables/regression_full_results.txt', 'w', encoding='utf-8') as f:
+    f.write("=" * 60 + "\n")
+    f.write("OLS回帰結果\n")
+    f.write("=" * 60 + "\n")
+    f.write(model.summary().as_text())
+    f.write("\n\n" + "=" * 60 + "\n")
+    f.write("VIF（多重共線性チェック）\n")
+    f.write("=" * 60 + "\n")
+    for i, col in enumerate(vif_data.columns):
+        if col != 'const':
+            f.write(f"{col}: {variance_inflation_factor(vif_data.values, i):.2f}\n")
 
-# Muslim vs log(GDP)
-axes[2].scatter(analysis_df['Muslims'], analysis_df['log_gdp'], alpha=0.6)
-axes[2].set_xlabel('Muslim Population (%)')
-axes[2].set_ylabel('log(GDP)')
-axes[2].set_title('Muslims vs log(GDP)')
-
-plt.tight_layout()
-plt.savefig('outputs/figures/regression_scatter.png', dpi=300)
-print("✅ 散布図を保存しました: outputs/figures/regression_scatter.png")
-
-# 結果をテキストで保存（UTF-8指定）
-with open('outputs/tables/regression_results.txt', 'w', encoding='utf-8') as f:
-    f.write("=== 回帰分析結果 ===\n\n")
-    f.write(f"分析対象国数: {len(analysis_df)}\n\n")
-    f.write("モデル1: Muslims → CO2_per_capita\n")
-    f.write(str(model1.summary()))
-    f.write("\n\n")
-    f.write("モデル2: Muslims + log(GDP) → CO2_per_capita\n")
-    f.write(str(model2.summary()))
-
-print("✅ 結果を保存しました: outputs/tables/regression_results.txt")
+print("\n✅ 結果を保存: outputs/tables/regression_full_results.txt")

@@ -1,0 +1,43 @@
+============================================================
+OLS回帰結果
+============================================================
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                log_co2   R-squared:                       0.295
+Model:                            OLS   Adj. R-squared:                  0.271
+Method:                 Least Squares   F-statistic:                     13.74
+Date:                Tue, 07 Jul 2026   Prob (F-statistic):           4.83e-11
+Time:                        11:13:28   Log-Likelihood:                -247.14
+No. Observations:                 156   AIC:                             506.3
+Df Residuals:                     150   BIC:                             524.6
+Df Model:                           5                                         
+Covariance Type:                  HC3                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         -6.1733      1.506     -4.100      0.000      -9.125      -3.222
+Muslims       -0.0154      0.005     -3.343      0.001      -0.024      -0.006
+Christians    -0.0153      0.005     -3.069      0.002      -0.025      -0.006
+Buddhists     -0.0170      0.006     -2.685      0.007      -0.029      -0.005
+Hindus        -0.0125      0.018     -0.687      0.492      -0.048       0.023
+log_gdp        0.3216      0.052      6.130      0.000       0.219       0.424
+==============================================================================
+Omnibus:                        0.252   Durbin-Watson:                   2.019
+Prob(Omnibus):                  0.882   Jarque-Bera (JB):                0.413
+Skew:                          -0.046   Prob(JB):                        0.814
+Kurtosis:                       2.765   Cond. No.                     1.09e+03
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC3)
+[2] The condition number is large, 1.09e+03. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+============================================================
+VIF（多重共線性チェック）
+============================================================
+Muslims: 4.25
+Christians: 4.92
+Buddhists: 1.91
+Hindus: 1.19
+log_gdp: 1.14
