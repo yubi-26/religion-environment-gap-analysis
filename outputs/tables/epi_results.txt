@@ -1,0 +1,88 @@
+======================================================================
+MODEL A
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:              epi_score   R-squared:                       0.163
+Model:                            OLS   Adj. R-squared:                  0.158
+Method:                 Least Squares   F-statistic:                     49.82
+Date:                Tue, 07 Jul 2026   Prob (F-statistic):           6.44e-11
+Time:                        10:14:14   Log-Likelihood:                -560.76
+No. Observations:                 147   AIC:                             1126.
+Df Residuals:                     145   BIC:                             1132.
+Df Model:                           1                                         
+Covariance Type:                  HC3                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         50.8588      1.262     40.316      0.000      48.386      53.331
+Muslims       -0.1302      0.018     -7.058      0.000      -0.166      -0.094
+==============================================================================
+Omnibus:                        2.448   Durbin-Watson:                   1.941
+Prob(Omnibus):                  0.294   Jarque-Bera (JB):                2.069
+Skew:                           0.169   Prob(JB):                        0.355
+Kurtosis:                       2.528   Cond. No.                         56.8
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC3)
+
+MODEL B
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:              epi_score   R-squared:                       0.217
+Model:                            OLS   Adj. R-squared:                  0.206
+Method:                 Least Squares   F-statistic:                     27.57
+Date:                Tue, 07 Jul 2026   Prob (F-statistic):           7.30e-11
+Time:                        10:14:14   Log-Likelihood:                -555.88
+No. Observations:                 147   AIC:                             1118.
+Df Residuals:                     144   BIC:                             1127.
+Df Model:                           2                                         
+Covariance Type:                  HC3                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         13.3540     13.213      1.011      0.312     -12.543      39.251
+Muslims       -0.1269      0.019     -6.783      0.000      -0.164      -0.090
+log_gdp        1.4673      0.524      2.798      0.005       0.440       2.495
+==============================================================================
+Omnibus:                        0.046   Durbin-Watson:                   1.987
+Prob(Omnibus):                  0.977   Jarque-Bera (JB):                0.176
+Skew:                           0.017   Prob(JB):                        0.916
+Kurtosis:                       2.834   Cond. No.                         662.
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC3)
+
+MODEL C REGION FE
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:              epi_score   R-squared:                       0.639
+Model:                            OLS   Adj. R-squared:                  0.621
+Method:                 Least Squares   F-statistic:                     38.22
+Date:                Tue, 07 Jul 2026   Prob (F-statistic):           1.87e-29
+Time:                        10:14:14   Log-Likelihood:                -499.03
+No. Observations:                 147   AIC:                             1014.
+Df Residuals:                     139   BIC:                             1038.
+Df Model:                           7                                         
+Covariance Type:                  HC3                                         
+============================================================================================
+                               coef    std err          z      P>|z|      [0.025      0.975]
+--------------------------------------------------------------------------------------------
+const                       26.8405     12.228      2.195      0.028       2.875      50.806
+Muslims                     -0.0552      0.021     -2.611      0.009      -0.097      -0.014
+log_gdp                      0.5966      0.456      1.309      0.191      -0.297       1.490
+Europe                      20.4254      2.647      7.716      0.000      15.237      25.614
+Latin America-Caribbean      5.1730      2.716      1.904      0.057      -0.151      10.497
+Middle East-North Africa     5.3867      2.322      2.320      0.020       0.836       9.938
+North America               17.7551    120.025      0.148      0.882    -217.490     253.001
+Sub-Saharan Africa           0.2078      2.374      0.088      0.930      -4.445       4.861
+==============================================================================
+Omnibus:                        0.353   Durbin-Watson:                   1.920
+Prob(Omnibus):                  0.838   Jarque-Bera (JB):                0.333
+Skew:                          -0.113   Prob(JB):                        0.847
+Kurtosis:                       2.941   Cond. No.                         870.
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC3)
