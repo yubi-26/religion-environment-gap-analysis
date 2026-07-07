@@ -1,0 +1,90 @@
+POLITICAL RIGHTS MEDIATION ANALYSIS
+
+MODEL 1
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:       political_rights   R-squared:                       0.069
+Model:                            OLS   Adj. R-squared:                  0.056
+Method:                 Least Squares   F-statistic:                     5.175
+Date:                Tue, 07 Jul 2026   Prob (F-statistic):            0.00676
+Time:                        10:48:50   Log-Likelihood:                -629.95
+No. Observations:                 147   AIC:                             1266.
+Df Residuals:                     144   BIC:                             1275.
+Df Model:                           2                                         
+Covariance Type:                  HC3                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const        125.2126     21.706      5.769      0.000      82.669     167.756
+Muslims        0.0117      0.038      0.310      0.756      -0.062       0.085
+log_gdp       -2.4977      0.822     -3.037      0.002      -4.109      -0.886
+==============================================================================
+Omnibus:                        2.122   Durbin-Watson:                   2.351
+Prob(Omnibus):                  0.346   Jarque-Bera (JB):                1.881
+Skew:                          -0.276   Prob(JB):                        0.390
+Kurtosis:                       3.038   Cond. No.                         662.
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC3)
+
+MODEL 2
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:              epi_score   R-squared:                       0.063
+Model:                            OLS   Adj. R-squared:                  0.050
+Method:                 Least Squares   F-statistic:                     4.318
+Date:                Tue, 07 Jul 2026   Prob (F-statistic):             0.0151
+Time:                        10:48:50   Log-Likelihood:                -569.08
+No. Observations:                 147   AIC:                             1144.
+Df Residuals:                     144   BIC:                             1153.
+Df Model:                           2                                         
+Covariance Type:                  HC3                                         
+====================================================================================
+                       coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------------
+const                9.4875     15.768      0.602      0.547     -21.418      40.393
+political_rights    -0.0192      0.051     -0.377      0.706      -0.119       0.081
+log_gdp              1.5312      0.580      2.640      0.008       0.395       2.668
+==============================================================================
+Omnibus:                        2.993   Durbin-Watson:                   1.959
+Prob(Omnibus):                  0.224   Jarque-Bera (JB):                3.040
+Skew:                           0.329   Prob(JB):                        0.219
+Kurtosis:                       2.749   Cond. No.                     1.05e+03
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC3)
+[2] The condition number is large, 1.05e+03. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+MODEL 3
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:              epi_score   R-squared:                       0.218
+Model:                            OLS   Adj. R-squared:                  0.201
+Method:                 Least Squares   F-statistic:                     19.72
+Date:                Tue, 07 Jul 2026   Prob (F-statistic):           9.33e-11
+Time:                        10:48:50   Log-Likelihood:                -555.84
+No. Observations:                 147   AIC:                             1120.
+Df Residuals:                     143   BIC:                             1132.
+Df Model:                           3                                         
+Covariance Type:                  HC3                                         
+====================================================================================
+                       coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------------
+const               14.9242     14.796      1.009      0.313     -14.075      43.923
+Muslims             -0.1267      0.019     -6.683      0.000      -0.164      -0.090
+political_rights    -0.0125      0.045     -0.281      0.778      -0.100       0.075
+log_gdp              1.4360      0.549      2.616      0.009       0.360       2.512
+==============================================================================
+Omnibus:                        0.043   Durbin-Watson:                   1.987
+Prob(Omnibus):                  0.979   Jarque-Bera (JB):                0.162
+Skew:                           0.026   Prob(JB):                        0.922
+Kurtosis:                       2.846   Cond. No.                     1.15e+03
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC3)
+[2] The condition number is large, 1.15e+03. This might indicate that there are
+strong multicollinearity or other numerical problems.

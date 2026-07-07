@@ -1,0 +1,81 @@
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:        social_progress   R-squared:                       0.089
+Model:                            OLS   Adj. R-squared:                  0.077
+Method:                 Least Squares   F-statistic:                     7.037
+Date:                Tue, 07 Jul 2026   Prob (F-statistic):            0.00121
+Time:                        10:53:30   Log-Likelihood:                -682.81
+No. Observations:                 147   AIC:                             1372.
+Df Residuals:                     144   BIC:                             1381.
+Df Model:                           2                                         
+Covariance Type:                  HC3                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         40.6806     36.251      1.122      0.262     -30.369     111.731
+Muslims       -0.2070      0.056     -3.710      0.000      -0.316      -0.098
+log_gdp        0.7235      1.407      0.514      0.607      -2.034       3.481
+==============================================================================
+Omnibus:                       14.180   Durbin-Watson:                   1.943
+Prob(Omnibus):                  0.001   Jarque-Bera (JB):                5.637
+Skew:                          -0.200   Prob(JB):                       0.0597
+Kurtosis:                       2.128   Cond. No.                         662.
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC3)
+
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:              epi_score   R-squared:                       0.270
+Model:                            OLS   Adj. R-squared:                  0.260
+Method:                 Least Squares   F-statistic:                     26.75
+Date:                Tue, 07 Jul 2026   Prob (F-statistic):           1.33e-10
+Time:                        10:53:30   Log-Likelihood:                -550.78
+No. Observations:                 147   AIC:                             1108.
+Df Residuals:                     144   BIC:                             1117.
+Df Model:                           2                                         
+Covariance Type:                  HC3                                         
+===================================================================================
+                      coef    std err          z      P>|z|      [0.025      0.975]
+-----------------------------------------------------------------------------------
+const               0.7583     11.712      0.065      0.948     -22.197      23.714
+social_progress     0.2075      0.034      6.194      0.000       0.142       0.273
+log_gdp             1.3912      0.464      2.997      0.003       0.481       2.301
+==============================================================================
+Omnibus:                        2.171   Durbin-Watson:                   1.910
+Prob(Omnibus):                  0.338   Jarque-Bera (JB):                2.059
+Skew:                           0.209   Prob(JB):                        0.357
+Kurtosis:                       2.598   Cond. No.                         867.
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC3)
+
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:              epi_score   R-squared:                       0.344
+Model:                            OLS   Adj. R-squared:                  0.330
+Method:                 Least Squares   F-statistic:                     30.80
+Date:                Tue, 07 Jul 2026   Prob (F-statistic):           2.02e-15
+Time:                        10:53:30   Log-Likelihood:                -542.91
+No. Observations:                 147   AIC:                             1094.
+Df Residuals:                     143   BIC:                             1106.
+Df Model:                           3                                         
+Covariance Type:                  HC3                                         
+===================================================================================
+                      coef    std err          z      P>|z|      [0.025      0.975]
+-----------------------------------------------------------------------------------
+const               6.4558     11.162      0.578      0.563     -15.421      28.333
+Muslims            -0.0918      0.019     -4.871      0.000      -0.129      -0.055
+social_progress     0.1696      0.034      4.962      0.000       0.103       0.237
+log_gdp             1.3446      0.445      3.019      0.003       0.472       2.217
+==============================================================================
+Omnibus:                        0.476   Durbin-Watson:                   1.878
+Prob(Omnibus):                  0.788   Jarque-Bera (JB):                0.615
+Skew:                           0.032   Prob(JB):                        0.735
+Kurtosis:                       2.690   Cond. No.                         942.
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC3)
