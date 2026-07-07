@@ -1,0 +1,88 @@
+MEDIATION ANALYSIS RESULTS
+
+MODEL 1: Muslims -> Rule of Law
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:            rule_of_law   R-squared:                       0.045
+Model:                            OLS   Adj. R-squared:                  0.032
+Method:                 Least Squares   F-statistic:                     3.137
+Date:                Tue, 07 Jul 2026   Prob (F-statistic):             0.0464
+Time:                        10:27:30   Log-Likelihood:                -700.90
+No. Observations:                 146   AIC:                             1408.
+Df Residuals:                     143   BIC:                             1417.
+Df Model:                           2                                         
+Covariance Type:                  HC3                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const        103.7452     35.921      2.888      0.004      33.342     174.148
+Muslims        0.1320      0.061      2.176      0.030       0.013       0.251
+log_gdp       -2.0707      1.417     -1.461      0.144      -4.848       0.706
+==============================================================================
+Omnibus:                       17.570   Durbin-Watson:                   1.789
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):                7.368
+Skew:                          -0.313   Prob(JB):                       0.0251
+Kurtosis:                       2.095   Cond. No.                         664.
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC3)
+
+MODEL 2: Rule of Law -> EPI
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:              epi_score   R-squared:                       0.206
+Model:                            OLS   Adj. R-squared:                  0.195
+Method:                 Least Squares   F-statistic:                     17.94
+Date:                Tue, 07 Jul 2026   Prob (F-statistic):           1.11e-07
+Time:                        10:27:30   Log-Likelihood:                -553.60
+No. Observations:                 146   AIC:                             1113.
+Df Residuals:                     143   BIC:                             1122.
+Df Model:                           2                                         
+Covariance Type:                  HC3                                         
+===============================================================================
+                  coef    std err          z      P>|z|      [0.025      0.975]
+-------------------------------------------------------------------------------
+const          -9.8486     12.862     -0.766      0.444     -35.057      15.360
+rule_of_law     0.1531      0.032      4.799      0.000       0.091       0.216
+log_gdp         1.9157      0.502      3.815      0.000       0.932       2.900
+==============================================================================
+Omnibus:                       12.253   Durbin-Watson:                   2.009
+Prob(Omnibus):                  0.002   Jarque-Bera (JB):                4.837
+Skew:                           0.136   Prob(JB):                       0.0891
+Kurtosis:                       2.151   Cond. No.                         927.
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC3)
+
+MODEL 3: Muslims + Rule of Law -> EPI
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:              epi_score   R-squared:                       0.421
+Model:                            OLS   Adj. R-squared:                  0.409
+Method:                 Least Squares   F-statistic:                     29.76
+Date:                Tue, 07 Jul 2026   Prob (F-statistic):           5.43e-15
+Time:                        10:27:30   Log-Likelihood:                -530.57
+No. Observations:                 146   AIC:                             1069.
+Df Residuals:                     142   BIC:                             1081.
+Df Model:                           3                                         
+Covariance Type:                  HC3                                         
+===============================================================================
+                  coef    std err          z      P>|z|      [0.025      0.975]
+-------------------------------------------------------------------------------
+const          -6.1674     12.365     -0.499      0.618     -30.403      18.068
+Muslims        -0.1517      0.019     -8.144      0.000      -0.188      -0.115
+rule_of_law     0.1844      0.029      6.413      0.000       0.128       0.241
+log_gdp         1.8659      0.475      3.925      0.000       0.934       2.798
+==============================================================================
+Omnibus:                        4.299   Durbin-Watson:                   1.929
+Prob(Omnibus):                  0.117   Jarque-Bera (JB):                2.855
+Skew:                          -0.163   Prob(JB):                        0.240
+Kurtosis:                       2.398   Cond. No.                     1.03e+03
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC3)
+[2] The condition number is large, 1.03e+03. This might indicate that there are
+strong multicollinearity or other numerical problems.

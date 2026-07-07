@@ -1,57 +1,294 @@
-﻿import pandas as pd
+﻿"""
+======================================================================
+MEDIATION ANALYSIS
+Religion -> Institutions -> Environmental Performance
+
+Pathway:
+Muslim population share
+        |
+        v
+Rule of Law / Political Rights
+        |
+        v
+Environmental Performance (EPI)
+
+======================================================================
+"""
+
+
+import os
+import pandas as pd
 import numpy as np
 import statsmodels.api as sm
-import os
 
-print("=============================================")
-print(" 🧬 媒介分析 (Mediation Analysis) の実行開始")
-print("=============================================\n")
 
-# データの読み込み
-df = pd.read_csv('data/processed/merged_2020.csv')
+print("="*70)
+print("MEDIATION ANALYSIS START")
+print("="*70)
 
-# 経済のコントロールとして log(GDP) を追加
-df['log_gdp'] = np.log(df['gdp'])
 
-# ターゲットとなるジェンダー指標
-gender_indicators = {
-    'female_parl_ratio': '女性議員比率',
-    'female_labor_ratio': '女性労働力率'
-}
+# =====================================================
+# Load data
+# =====================================================
 
-for ind, label in gender_indicators.items():
-    print(f"--- 【検証経路】ジェンダー指標: {label} ({ind}) ---")
-    
-    # 必要な変数（CO2, 宗教, GDP, 対象ジェンダー指標）が全て揃っている国に絞る
-    analysis_df = df[['co2_per_capita', 'Muslims', 'log_gdp', ind]].dropna()
-    print(f"有効分析国数: {len(analysis_df)} カ国")
-    
-    if len(analysis_df) < 30:
-        print("データ数が少なすぎるため、この指標の分析をスキップします。\n")
-        continue
-        
-    y_co2 = analysis_df['co2_per_capita']
-    
-    # ステップ1: Path A (宗教 -> ジェンダー指標)
-    # ※もし宗教がジェンダー不平等を強めるなら、女性比率は「下がる」はず（マイナスの係数を期待）
-    X_pathA = sm.add_constant(analysis_df[['Muslims', 'log_gdp']])
-    y_gender = analysis_df[ind]
-    model_A = sm.OLS(y_gender, X_pathA).fit()
-    
-    # ステップ2: Path B & C' (宗教 + ジェンダー + GDP -> CO2)
-    X_pathBC = sm.add_constant(analysis_df[['Muslims', ind, 'log_gdp']])
-    model_BC = sm.OLS(y_co2, X_pathBC).fit()
-    
-    # 結果のダイジェスト表示
-    print("\n[結果ダイジェスト]")
-    print(f" 1. Path A (Muslims -> {ind}):")
-    print(f"    - 係数: {model_A.params['Muslims']:.4f} (p値: {model_A.pvalues['Muslims']:.4f})")
-    
-    print(f" 2. Path B ({ind} -> CO2):")
-    print(f"    - 係数: {model_BC.params[ind]:.4f} (p値: {model_BC.pvalues[ind]:.4f})")
-    
-    print(f" 3. Direct Path C' (Muslims -> CO2 ※ジェンダーを考慮後):")
-    print(f"    - 係数: {model_BC.params['Muslims']:.4f} (p値: {model_BC.pvalues['Muslims']:.4f})")
-    print("-" * 50 + "\n")
+df = pd.read_csv(
+    "data/processed/merged_epi_full_2020.csv"
+)
 
-print("🎉 媒介分析の計算が完了しました！")
+
+print("Original shape:", df.shape)
+
+
+
+# =====================================================
+# Prepare variables
+# =====================================================
+
+required = [
+    "Muslims",
+    "gdp",
+    "epi_score",
+    "rule_of_law",
+    "political_rights",
+    "social_progress"
+]
+
+
+df = df[required].copy()
+
+
+df["log_gdp"] = np.log(
+    df["gdp"]
+)
+
+
+print("\nMissing values:")
+print(df.isna().sum())
+
+
+
+# =====================================================
+# Helper function
+# =====================================================
+
+def regression(y, X):
+
+    X = sm.add_constant(X)
+
+    model = sm.OLS(
+        y,
+        X
+    ).fit(
+        cov_type="HC3"
+    )
+
+    print(model.summary())
+
+    return model
+
+
+
+# =====================================================
+# PATH 1
+# Religion -> Institution
+# =====================================================
+
+
+print("\n")
+print("="*70)
+print("MODEL 1")
+print("Muslims -> Rule of Law")
+print("="*70)
+
+
+df1 = df.dropna(
+    subset=[
+        "Muslims",
+        "rule_of_law",
+        "log_gdp"
+    ]
+)
+
+
+model1 = regression(
+    df1["rule_of_law"],
+    df1[
+        [
+            "Muslims",
+            "log_gdp"
+        ]
+    ]
+)
+
+
+
+# =====================================================
+# PATH 2
+# Institution -> EPI
+# =====================================================
+
+
+print("\n")
+print("="*70)
+print("MODEL 2")
+print("Rule of Law -> EPI")
+print("="*70)
+
+
+df2 = df.dropna(
+    subset=[
+        "epi_score",
+        "rule_of_law",
+        "log_gdp"
+    ]
+)
+
+
+model2 = regression(
+    df2["epi_score"],
+    df2[
+        [
+            "rule_of_law",
+            "log_gdp"
+        ]
+    ]
+)
+
+
+
+# =====================================================
+# PATH 3
+# Full mediation model
+# =====================================================
+
+
+print("\n")
+print("="*70)
+print("MODEL 3")
+print("Muslims + Rule of Law -> EPI")
+print("="*70)
+
+
+df3 = df.dropna(
+    subset=[
+        "epi_score",
+        "Muslims",
+        "rule_of_law",
+        "log_gdp"
+    ]
+)
+
+
+model3 = regression(
+    df3["epi_score"],
+    df3[
+        [
+            "Muslims",
+            "rule_of_law",
+            "log_gdp"
+        ]
+    ]
+)
+
+
+
+# =====================================================
+# Compare coefficients
+# =====================================================
+
+
+print("\n")
+print("="*70)
+print("MEDIATION SUMMARY")
+print("="*70)
+
+
+print(
+    "Model 1 Muslims -> Rule of Law:",
+    model1.params["Muslims"],
+    "p=",
+    model1.pvalues["Muslims"]
+)
+
+
+print(
+    "Model 2 Rule of Law -> EPI:",
+    model2.params["rule_of_law"],
+    "p=",
+    model2.pvalues["rule_of_law"]
+)
+
+
+print(
+    "Model 3 Muslims -> EPI:",
+    model3.params["Muslims"],
+    "p=",
+    model3.pvalues["Muslims"]
+)
+
+
+
+# =====================================================
+# Save results
+# =====================================================
+
+
+os.makedirs(
+    "outputs/tables",
+    exist_ok=True
+)
+
+
+with open(
+    "outputs/tables/mediation_results.txt",
+    "w",
+    encoding="utf-8"
+) as f:
+
+
+    f.write(
+        "MEDIATION ANALYSIS RESULTS\n\n"
+    )
+
+
+    f.write(
+        "MODEL 1: Muslims -> Rule of Law\n"
+    )
+
+    f.write(
+        str(model1.summary())
+    )
+
+
+    f.write(
+        "\n\nMODEL 2: Rule of Law -> EPI\n"
+    )
+
+    f.write(
+        str(model2.summary())
+    )
+
+
+    f.write(
+        "\n\nMODEL 3: Muslims + Rule of Law -> EPI\n"
+    )
+
+
+    f.write(
+        str(model3.summary())
+    )
+
+
+
+print("\n")
+print("="*70)
+print("DONE")
+print("="*70)
+
+print(
+    "Saved:"
+)
+
+print(
+    "outputs/tables/mediation_results.txt"
+)
