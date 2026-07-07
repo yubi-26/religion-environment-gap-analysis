@@ -1,6 +1,7 @@
 """
-媒介分析（Mediation Analysis）- 構造的に正しい版
-従属変数: co2_per_capita（EPIとは独立したアウトカム）
+環境経路分析（Environmental Pathway Analysis）
+従属変数: co2_per_capita（EPIとは独立）
+Bonferroni補正付き
 """
 
 import pandas as pd
@@ -11,7 +12,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 print("=" * 70)
-print("媒介分析（Mediation Analysis）- 構造的に正しい版")
+print("環境経路分析（Environmental Pathway Analysis）")
 print("従属変数: CO2 per capita（EPIとは独立）")
 print("=" * 70)
 
@@ -22,16 +23,7 @@ df = pd.read_csv('data/processed/merged_epi_full_2020.csv')
 print(f"\nデータ形状: {df.shape}")
 
 # ========================================
-# 2. 利用可能変数の確認（デバッグ）
-# ========================================
-print("\n【利用可能変数一覧】")
-print([c for c in df.columns if 'co2' in c.lower() or 'epi' in c.lower() or 'gdp' in c.lower()])
-
-print("\n【CO2統計】")
-print(df['co2_per_capita'].describe())
-
-# ========================================
-# 3. 変数定義
+# 2. 変数定義
 # ========================================
 X_var = 'Muslims'
 Y_var = 'co2_per_capita'
@@ -53,27 +45,21 @@ print(f"制御変数: {control_vars}")
 print(f"媒介変数 (M): {list(mediators.keys())}")
 
 # ========================================
-# 4. データ準備（log変換）
+# 3. データ準備
 # ========================================
 df['log_gdp'] = np.log(df['gdp'])
-df['log_co2'] = np.log1p(df['co2_per_capita'])  # log1pで安定化
+df['log_co2'] = np.log1p(df['co2_per_capita'])
 
-print(f"\nlog_gdp 作成完了（欠損: {df['log_gdp'].isnull().sum()}件）")
-print(f"log_co2 作成完了（欠損: {df['log_co2'].isnull().sum()}件）")
-
-# ========================================
-# 5. 分析用データセット
-# ========================================
 analysis_vars = [X_var, 'log_co2'] + list(mediators.keys()) + control_vars
 df_clean = df[analysis_vars].dropna()
 print(f"\n欠損除去後のサンプル数: {len(df_clean)}")
 
 if len(df_clean) < 30:
-    print("⚠️ サンプル数が少なすぎます。分析を終了します。")
+    print("⚠️ サンプル数が少なすぎます。")
     exit()
 
 # ========================================
-# 6. 標準化
+# 4. 標準化
 # ========================================
 scale_vars = [X_var, 'log_co2'] + list(mediators.keys()) + control_vars
 scaler = StandardScaler()
@@ -81,13 +67,13 @@ df_clean[scale_vars] = scaler.fit_transform(df_clean[scale_vars])
 print("✅ 標準化完了（平均=0, 標準偏差=1）")
 
 # ========================================
-# 7. 媒介分析
+# 5. 経路分析
 # ========================================
 results = []
 
 for mediator, label in mediators.items():
     print(f"\n{'='*70}")
-    print(f"媒介変数: {label} ({mediator})")
+    print(f"経路: {label} ({mediator})")
     print('='*70)
     
     cols = [X_var, mediator, 'log_co2'] + control_vars
@@ -96,7 +82,7 @@ for mediator, label in mediators.items():
     print(f"有効サンプル数: {n}")
     
     if n < 30:
-        print("⚠️ サンプル数が少なすぎます。スキップします。")
+        print("⚠️ サンプル数不足。スキップ。")
         continue
     
     # Path A: X → M
@@ -114,7 +100,6 @@ for mediator, label in mediators.items():
     y_C = analysis_df['log_co2']
     model_C = sm.OLS(y_C, X_C).fit(cov_type='HC3')
     
-    # 間接効果
     indirect = model_A.params[X_var] * model_C.params[mediator]
     total = model_C.params[X_var] + indirect
     
@@ -130,7 +115,6 @@ for mediator, label in mediators.items():
         'path_c_p': model_C.pvalues[X_var],
         'path_c_mediator_coef': model_C.params[mediator],
         'path_c_mediator_p': model_C.pvalues[mediator],
-        'r_squared': model_C.rsquared,
         'indirect_effect': indirect,
         'total_effect': total,
     })
@@ -139,35 +123,51 @@ for mediator, label in mediators.items():
     print(f"  Path A (Muslims → {mediator}): {model_A.params[X_var]:.4f} (p={model_A.pvalues[X_var]:.4f})")
     print(f"  Path B ({mediator} → log_CO2): {model_B.params[mediator]:.4f} (p={model_B.pvalues[mediator]:.4f})")
     print(f"  Path C' (Muslims → log_CO2): {model_C.params[X_var]:.4f} (p={model_C.pvalues[X_var]:.4f})")
-    print(f"  【間接効果】: {indirect:.4f}")
-    print(f"  【総効果】: {total:.4f}")
+    print(f"  間接効果: {indirect:.4f}")
 
 # ========================================
-# 8. 結果保存
+# 6. Bonferroni補正 + 保存
 # ========================================
 results_df = pd.DataFrame(results)
-results_df.to_csv('outputs/tables/mediation_co2_results.csv', index=False)
-print(f"\n{'='*70}")
-print("✅ 保存: outputs/tables/mediation_co2_results.csv")
-print('='*70)
 
-# ========================================
-# 9. サマリー
-# ========================================
+num_tests = len(results_df)
+
+results_df['path_a_p_bonferroni'] = (
+    results_df['path_a_p'] * num_tests
+).clip(upper=1.0)
+
+results_df['path_b_p_bonferroni'] = (
+    results_df['path_c_mediator_p'] * num_tests
+).clip(upper=1.0)
+
+results_df['robust_mediation'] = (
+    (results_df['path_a_p_bonferroni'] < 0.05) &
+    (results_df['path_b_p_bonferroni'] < 0.05)
+)
+
+results_df.to_csv(
+    'outputs/tables/environmental_pathway_analysis_results.csv',
+    index=False
+)
+
 print("\n" + "=" * 70)
-print("結果サマリー")
+print(f"Bonferroni補正（α = 0.05 / {num_tests} = {0.05/num_tests:.4f}）")
 print("=" * 70)
 
-significant = results_df[
-    (results_df['path_a_p'] < 0.05) & 
-    (results_df['path_c_mediator_p'] < 0.05)
-]
+for _, row in results_df.iterrows():
+    status = "✅ Robust" if row['robust_mediation'] else "❌ Not robust"
+    print(f"{row['label']}:")
+    print(f"  Path A corrected: p={row['path_a_p_bonferroni']:.4f}")
+    print(f"  Path B corrected: p={row['path_b_p_bonferroni']:.4f}")
+    print(f"  → {status}")
 
-if len(significant) > 0:
-    print("\n✅ 有意な媒介効果が見られた変数:")
-    for _, row in significant.iterrows():
+robust = results_df[results_df['robust_mediation']]
+if len(robust) > 0:
+    print("\n✅ Bonferroni補正後も頑健な経路:")
+    for _, row in robust.iterrows():
         print(f"  - {row['label']}: 間接効果 = {row['indirect_effect']:.4f}")
 else:
-    print("\n⚠️ 有意な媒介効果は見つかりませんでした。")
+    print("\n⚠️ Bonferroni補正後、頑健な経路は見つかりませんでした。")
 
-print("\n" + "=" * 70)
+print("\n✅ 保存: outputs/tables/environmental_pathway_analysis_results.csv")
+print("=" * 70)
