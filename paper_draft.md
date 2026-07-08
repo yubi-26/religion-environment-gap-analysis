@@ -1,101 +1,167 @@
-# Does Religion Determine Environmental Outcomes?
-## A Causal Analysis of Religious Composition and Carbon Emissions
+# Religious Composition and Environmental Outcomes
+## A Specification Curve Analysis of Muslim Population Share and CO₂ Emissions
 
 ---
 
 ## Abstract
 
-This study examines the relationship between religious composition and carbon emissions using cross-national data from 181 countries. Addressing the endogeneity of religious composition through an instrumental variables strategy based on historical geographic diffusion of Islam, we find no evidence that Muslim population share has a causal effect on CO₂ emissions per capita. Our results consistently show that economic development—measured by GDP per capita—is the primary driver of carbon emissions, regardless of religious composition. These findings challenge culturally deterministic narratives and highlight the importance of structural factors in environmental policymaking.
+This study examines the relationship between Muslim population share and CO₂ emissions using cross-national data from 156 countries. Through specification curve analysis across 10 model specifications, we find that the association is highly sensitive to model choice. While significant positive associations appear in models controlling for GDP and energy (p < 0.05), these associations disappear when regional fixed effects are introduced (p = 0.711). Additionally, measurement choice matters: Muslim population share is significant (p = 0.018), but Muslim population size is not (p = 0.955). These findings suggest that observed relationships are largely explained by regional economic and demographic structures rather than a direct religious effect.
 
 ---
 
 ## 1. Introduction
 
-Do religious values shape environmental outcomes? This question has gained increasing attention in both academic and policy circles, yet empirical evidence remains scarce and contested. A prevalent narrative suggests that Muslim-majority countries are environmentally "backward" due to religious teachings or cultural values. However, this narrative rests on weak empirical foundations—correlation is often mistaken for causation, and structural factors are frequently overlooked.
+[簡単な背景]
+- 環境問題は世界的な課題
+- 宗教と環境の関係についての議論がある
+- しかし、単純な相関ではなく交絡要因を考慮する必要がある
 
-This study contributes to the literature by providing rigorous causal evidence on the relationship between religious composition and carbon emissions. Using cross-national data from 181 countries and an instrumental variables strategy based on historical geographic diffusion of Islam (latitude and distance from Mecca), we address the endogeneity of religious composition.
-
-Our findings challenge culturally deterministic narratives:
-1. OLS estimates show no significant relationship between Muslim population share and CO₂ emissions.
-2. IV estimates confirm the absence of a causal effect.
-3. Economic development (GDP) consistently predicts emissions, regardless of religious composition.
+### Research Question
+> Does Muslim population share predict CO₂ emissions after controlling for economic, demographic, and regional factors?
 
 ---
 
 ## 2. Data and Methods
 
-### 2.1 Data Sources
+### 2.1 Data
+- 156 countries, 2020
+- Sources: World Bank, Pew Research Center, EPI
 
-| Data | Source | Variables |
-|------|--------|-----------|
-| Religion | Pew Research Center | Muslim population share, 2020 |
-| CO₂ Emissions | Our World in Data | CO₂ per capita, 2020 |
-| GDP | Our World in Data | GDP per capita, 2020 |
-| Gender | World Bank API | Female parliament share, 2020 |
-| Geography | Manual | Latitude, Distance from Mecca |
+### 2.2 Variables
+- **Dependent**: log(CO₂ per capita), log(Total CO₂)
+- **Independent**: Muslim population share (%)
+- **Controls**: log(GDP per capita), log(GDP), log(Population), Energy consumption
+- **Fixed Effects**: Region
 
-### 2.2 Empirical Strategy
+### 2.3 Specifications (S1-S10)
 
-**OLS Model:**
-$$CO2_i = \beta_0 + \beta_1 Muslim_i + \beta_2 GDP_i + \varepsilon_i$$
-
-**IV Model (2SLS):**
-
-First Stage:
-$$Muslim_i = \pi_0 + \pi_1 Latitude_i + \pi_2 DistMecca_i + \pi_3 GDP_i + u_i$$
-
-Second Stage:
-$$CO2_i = \beta_0 + \beta_1 \widehat{Muslim}_i + \beta_2 GDP_i + \varepsilon_i$$
+| Model | Dependent | Muslim Var | Controls | Purpose |
+|-------|-----------|------------|----------|---------|
+| S1 | CO2_pc | Share | None | Baseline |
+| S2 | CO2_pc | Share | GDPpc | Economic control |
+| S3 | CO2_pc | Share | GDPpc + Energy | Energy control |
+| S4 | CO2_pc | Share | GDP_total + Pop | Scale control |
+| S5 | CO2_pc | Share | GDP_total + Pop + Energy | Full controls |
+| **S6** | **CO2_pc** | **Share** | **GDPpc + Energy + Region FE** | **Regional structure** |
+| S7 | Total CO2 | Share | GDPpc + Energy | Total emissions |
+| **S8** | **Total CO2** | **Share** | **GDP_total + Pop + Energy** | **Full scale control** |
+| **S9** | **Total CO2** | **Pop count** | **GDP_total + Pop + Energy** | **Measurement test** |
+| S10 | Total CO2 | Share | GDPpc + Energy + Region FE | Regional + total |
 
 ---
 
 ## 3. Results
 
-### 3.1 Main Results
+### 3.1 Specification Curve Analysis
 
-| Model | Muslims Coefficient | p-value | R² |
-|-------|--------------------|---------|-----|
-| OLS | 0.010 | 0.347 | 0.003 |
-| IV (2SLS) | [IV coefficient] | [p-value] | [R²] |
+**Figure 1** shows the Muslim coefficient across all 10 specifications.
 
-### 3.2 First Stage
+Key observations:
+- Coefficients range from **-0.0019 to +0.0087**
+- 5/10 specifications are statistically significant (p < 0.05)
+- 5/10 are not significant
 
-| Instrument | Coefficient | p-value |
-|------------|-------------|---------|
-| Latitude | -0.264 | 0.063 |
-| Distance from Mecca | -5.885 | <0.001 |
-| **F-statistic** | **13.67** | - |
+### 3.2 Regional Fixed Effects
+
+**Critical finding**: Adding region fixed effects eliminates significance.
+
+| Specification | Muslim Coef | p-value | R² |
+|---------------|-------------|---------|-----|
+| S3 (GDPpc + Energy) | 0.0015 | **0.039** | 0.841 |
+| **S6 (+ Region FE)** | **-0.0003** | **0.711** | **0.855** |
+
+→ **Region FE explains the association.**
+
+### 3.3 Measurement Matters
+
+| Specification | Variable | p-value |
+|---------------|----------|---------|
+| S8 | Muslim **share** | **0.018** ✅ |
+| S9 | Muslim **population** | **0.955** ❌ |
+
+→ **How you measure Muslim population changes the conclusion.**
+
+### 3.4 Oil-Exporting Status
+
+| Model | Muslim p-value |
+|-------|----------------|
+| Without oil | 0.039 |
+| With oil | 0.083 |
+
+→ Oil partially explains, but does not fully explain.
+
+### 3.5 Clustered Standard Errors
+
+| SE Type | p-value |
+|---------|---------|
+| HC3 | 0.055 |
+| Cluster (region) | 0.037 |
+
+→ Region clusters affect inference (caution: only 6 clusters).
 
 ---
 
-## 4. Robustness Checks
+## 4. Discussion
 
-[See Robustness section in discussion/]
+### 4.1 Interpretation
+
+The relationship between Muslim population share and CO₂ emissions is **not robust across specifications**.
+
+- Without regional controls: significant
+- With regional controls: **not significant**
+
+This suggests that **regional economic and energy structures** (oil economies, development patterns) explain the observed relationship, rather than religious composition itself.
+
+### 4.2 Why This Matters
+
+This study demonstrates:
+1. **Specification curve analysis** is essential for robustness
+2. **Region fixed effects** absorb substantial variation
+3. **Measurement choice** (share vs count) changes inference
+
+### 4.3 Limitations
+
+- Cross-sectional data → no causal inference
+- Muslim share is not religious intensity
+- Only 6 region clusters for clustered SE
+- Limited to 156 countries
 
 ---
 
-## 5. Discussion
+## 5. Conclusion
 
-Our results demonstrate that economic structure, not religious identity, determines carbon emissions. This finding has important implications:
+**Main finding:**
 
-1. **Policy**: Environmental interventions should focus on economic and institutional reforms
-2. **Discourse**: The narrative linking Islam to environmental degradation is empirically unsupported
-3. **Research**: Future studies should examine structural factors rather than cultural explanations
+> The association between Muslim population share and CO₂ emissions is highly specification-dependent. Significant associations appear in some models but disappear when regional fixed effects are introduced. This suggests that regional economic and demographic structures, not religious composition per se, explain the observed relationship.
 
----
+**Contribution:**
 
-## 6. Conclusion
-
-The central message of this research is clear: **economic structure, not religious identity, is the fundamental determinant of national carbon emissions**.
+> This study provides empirical evidence that cultural-environmental relationships must be examined with careful attention to model specification, measurement, and regional structure.
 
 ---
 
 ## References
 
-[To be added]
+[To be completed]
 
 ---
 
-## Appendix
+## Tables and Figures
 
-[Code available at: https://github.com/yubi-26/religion-environment-gap-analysis]
+### Table 1: Summary of Results
+
+| Model | Muslim Coef | p-value | R² | Significant? |
+|-------|-------------|---------|-----|--------------|
+| S1 | -0.0019 | 0.313 | 0.007 | ❌ |
+| S2 | 0.0025 | 0.004 | 0.785 | ✅ |
+| S3 | 0.0015 | 0.039 | 0.841 | ✅ |
+| S4 | 0.0025 | 0.004 | 0.785 | ✅ |
+| S5 | 0.0014 | 0.055 | 0.843 | ❌ |
+| **S6** | **-0.0003** | **0.711** | **0.855** | **❌** |
+| S7 | 0.0087 | 0.010 | 0.335 | ✅ |
+| **S8** | **0.0029** | **0.018** | **0.930** | **✅** |
+| **S9** | **0.0010** | **0.955** | **0.927** | **❌** |
+| S10 | 0.0011 | 0.794 | 0.492 | ❌ |
+
+### Figure 1: Specification Curve
+[Placeholder for image]
