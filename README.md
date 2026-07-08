@@ -10,7 +10,7 @@ Using **specification curve analysis** and robustness testing, this study evalua
 
 ## Main Finding
 
-> The observed association between Muslim population share and CO₂ emissions is highly specification-dependent. After introducing regional fixed effects, the relationship becomes statistically indistinguishable from zero, suggesting that broader structural factors are more important explanations of cross-national environmental differences.
+> The observed association between Muslim population share and CO₂ emissions is highly sensitive to model specification, variable definition, and structural controls. While significant in some specifications, the relationship disappears when regional fixed effects or oil-exporting status are introduced. This suggests that simple cross-national comparisons can mistake structural differences for cultural effects.
 
 ---
 
