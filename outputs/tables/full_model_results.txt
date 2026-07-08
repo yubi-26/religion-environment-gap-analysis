@@ -1,0 +1,117 @@
+完全モデル結果
+======================================================================
+モデル1: Muslimsのみ
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                log_co2   R-squared:                       0.007
+Model:                            OLS   Adj. R-squared:                  0.001
+Method:                 Least Squares   F-statistic:                     1.016
+Date:                Tue, 07 Jul 2026   Prob (F-statistic):              0.315
+Time:                        14:37:26   Log-Likelihood:                -192.76
+No. Observations:                 156   AIC:                             389.5
+Df Residuals:                     154   BIC:                             395.6
+Df Model:                           1                                         
+Covariance Type:                  HC3                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const          1.3781      0.074     18.652      0.000       1.233       1.523
+Muslims       -0.0019      0.002     -1.008      0.313      -0.005       0.002
+==============================================================================
+Omnibus:                        5.970   Durbin-Watson:                   1.950
+Prob(Omnibus):                  0.051   Jarque-Bera (JB):                5.654
+Skew:                           0.410   Prob(JB):                       0.0592
+Kurtosis:                       2.554   Cond. No.                         58.6
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC3)
+
+モデル2: Muslims + GDP
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                log_co2   R-squared:                       0.238
+Model:                            OLS   Adj. R-squared:                  0.229
+Method:                 Least Squares   F-statistic:                     34.83
+Date:                Tue, 07 Jul 2026   Prob (F-statistic):           3.42e-13
+Time:                        14:37:26   Log-Likelihood:                -172.08
+No. Observations:                 156   AIC:                             350.2
+Df Residuals:                     153   BIC:                             359.3
+Df Model:                           2                                         
+Covariance Type:                  HC3                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         -3.9453      0.725     -5.440      0.000      -5.367      -2.524
+Muslims       -0.0014      0.002     -0.893      0.372      -0.005       0.002
+log_gdp        0.2081      0.028      7.491      0.000       0.154       0.262
+==============================================================================
+Omnibus:                        9.434   Durbin-Watson:                   2.084
+Prob(Omnibus):                  0.009   Jarque-Bera (JB):                9.493
+Skew:                           0.591   Prob(JB):                      0.00868
+Kurtosis:                       3.248   Cond. No.                         667.
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC3)
+
+モデル3: Muslims + GDP + Population
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                log_co2   R-squared:                       0.785
+Model:                            OLS   Adj. R-squared:                  0.781
+Method:                 Least Squares   F-statistic:                     187.7
+Date:                Tue, 07 Jul 2026   Prob (F-statistic):           6.71e-51
+Time:                        14:37:26   Log-Likelihood:                -73.255
+No. Observations:                 156   AIC:                             154.5
+Df Residuals:                     152   BIC:                             166.7
+Df Model:                           3                                         
+Covariance Type:                  HC3                                         
+==================================================================================
+                     coef    std err          z      P>|z|      [0.025      0.975]
+----------------------------------------------------------------------------------
+const             -4.4820      0.406    -11.050      0.000      -5.277      -3.687
+Muslims            0.0025      0.001      2.861      0.004       0.001       0.004
+log_gdp            0.6297      0.029     21.580      0.000       0.573       0.687
+log_population    -0.6340      0.037    -17.090      0.000      -0.707      -0.561
+==============================================================================
+Omnibus:                       18.124   Durbin-Watson:                   2.142
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):               21.031
+Skew:                           0.788   Prob(JB):                     2.71e-05
+Kurtosis:                       3.867   Cond. No.                         688.
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC3)
+
+モデル4: Muslims + GDP + Population + Energy
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                log_co2   R-squared:                       0.843
+Model:                            OLS   Adj. R-squared:                  0.839
+Method:                 Least Squares   F-statistic:                     204.7
+Date:                Tue, 07 Jul 2026   Prob (F-statistic):           6.83e-60
+Time:                        14:37:26   Log-Likelihood:                -49.055
+No. Observations:                 156   AIC:                             108.1
+Df Residuals:                     151   BIC:                             123.4
+Df Model:                           4                                         
+Covariance Type:                  HC3                                         
+=====================================================================================
+                        coef    std err          z      P>|z|      [0.025      0.975]
+-------------------------------------------------------------------------------------
+const                -3.4396      0.416     -8.269      0.000      -4.255      -2.624
+Muslims               0.0014      0.001      1.920      0.055   -2.82e-05       0.003
+log_gdp               0.4552      0.039     11.717      0.000       0.379       0.531
+log_population       -0.4362      0.044    -10.010      0.000      -0.522      -0.351
+energy_per_capita  8.656e-06   2.16e-06      3.999      0.000    4.41e-06    1.29e-05
+==============================================================================
+Omnibus:                       12.778   Durbin-Watson:                   2.020
+Prob(Omnibus):                  0.002   Jarque-Bera (JB):               26.193
+Skew:                           0.311   Prob(JB):                     2.05e-06
+Kurtosis:                       4.909   Cond. No.                     6.02e+05
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC3)
+[2] The condition number is large, 6.02e+05. This might indicate that there are
+strong multicollinearity or other numerical problems.
