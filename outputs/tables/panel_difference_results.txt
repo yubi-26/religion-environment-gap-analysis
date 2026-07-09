@@ -1,0 +1,56 @@
+Task 3: 疑似パネル分析結果
+======================================================================
+
+一階差分モデル（国固定効果相当）
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:             co2_change   R-squared:                       0.013
+Model:                            OLS   Adj. R-squared:                  0.007
+Method:                 Least Squares   F-statistic:                     2.964
+Date:                Wed, 08 Jul 2026   Prob (F-statistic):             0.0868
+Time:                        11:12:55   Log-Likelihood:                -95.231
+No. Observations:                 181   AIC:                             194.5
+Df Residuals:                     179   BIC:                             200.9
+Df Model:                           1                                         
+Covariance Type:                  HC3                                         
+=================================================================================
+                    coef    std err          z      P>|z|      [0.025      0.975]
+---------------------------------------------------------------------------------
+const             0.0296      0.032      0.932      0.352      -0.033       0.092
+muslim_change    -0.0285      0.017     -1.722      0.085      -0.061       0.004
+==============================================================================
+Omnibus:                       19.491   Durbin-Watson:                   2.042
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):               33.961
+Skew:                           0.556   Prob(JB):                     4.22e-08
+Kurtosis:                       4.808   Cond. No.                         1.79
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC3)
+
+横断面モデル（2020年のみ）
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:           log_co2_2020   R-squared:                       0.012
+Model:                            OLS   Adj. R-squared:                  0.007
+Method:                 Least Squares   F-statistic:                     2.057
+Date:                Wed, 08 Jul 2026   Prob (F-statistic):              0.153
+Time:                        11:12:55   Log-Likelihood:                -317.90
+No. Observations:                 181   AIC:                             639.8
+Df Residuals:                     179   BIC:                             646.2
+Df Model:                           1                                         
+Covariance Type:                  HC3                                         
+================================================================================
+                   coef    std err          z      P>|z|      [0.025      0.975]
+--------------------------------------------------------------------------------
+const            0.8139      0.115      7.051      0.000       0.588       1.040
+muslims_2020    -0.0041      0.003     -1.434      0.152      -0.010       0.002
+==============================================================================
+Omnibus:                        5.376   Durbin-Watson:                   1.740
+Prob(Omnibus):                  0.068   Jarque-Bera (JB):                5.348
+Skew:                          -0.384   Prob(JB):                       0.0690
+Kurtosis:                       2.653   Cond. No.                         57.5
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC3)

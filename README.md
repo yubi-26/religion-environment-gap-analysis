@@ -1,539 +1,412 @@
-# Religion-Environment Gap Analysis
+# 🌍 Religion, Energy Structure, and Environmental Outcomes
 
 ## Can religious composition explain environmental outcomes?
 
-This project investigates whether Muslim population share predicts CO₂ emissions across 156 countries after accounting for economic development, energy consumption, and regional structures.
+![Python](https://img.shields.io/badge/Python-3.10+-blue)
+![Machine Learning](https://img.shields.io/badge/Machine%20Learning-Random%20Forest-orange)
+![Statistics](https://img.shields.io/badge/Statistics-Specification%20Curve-green)
+![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
-Using **specification curve analysis** and robustness testing, this study evaluates whether the observed relationship is consistent across alternative model specifications.
-
----
-
-## Main Finding
-
-> The observed association between Muslim population share and CO₂ emissions is highly sensitive to model specification, variable definition, and structural controls. While significant in some specifications, the relationship disappears when regional fixed effects or oil-exporting status are introduced. This suggests that simple cross-national comparisons can mistake structural differences for cultural effects.
 
 ---
 
-## Research Design
+# 📌 Research Overview
+
+This project investigates whether **religious composition predicts environmental outcomes**.
+
+Specifically, this study examines whether:
+
+> **Muslim population share predicts CO₂ emissions across countries after accounting for economic development, energy systems, demographic scale, and regional structures.**
+
+The analysis uses:
+
+- Specification Curve Analysis
+- Ordinary Least Squares Regression
+- Robust Standard Errors
+- Regional Fixed Effects
+- Machine Learning Validation
+
+to evaluate whether the observed relationship remains consistent across alternative model specifications.
+
+---
+
+# 🔍 Main Finding
+
+> **Religious composition alone does not provide a robust explanation of environmental outcomes.**
+
+The observed association between Muslim population share and CO₂ emissions is highly sensitive to:
+
+- Model specification
+- Variable definition
+- Economic structure
+- Energy systems
+- Regional differences
+
+
+Significant associations appear in several specifications.
+
+However:
+
+> After controlling for regional differences, the relationship becomes statistically indistinguishable from zero.
+
+This suggests that simple cross-national comparisons may confuse:
 Religious Composition
-(Muslim Share)
-|
-|
 ↓
-Observed Cross-National
-CO₂ Association
-|
+Observed Environmental Difference
 
-| | |
-↓ ↓ ↓
-Economic Structure Energy System Region
-(GDP, Development) (Consumption) (Geography)
-| | |
-
-|
+with:
+Economic Structure
++
+Energy System
++
+Regional Characteristics
 ↓
 Environmental Outcome
-(CO₂ Emissions)
-
-Research Question:
-Does the association remain after accounting
-for structural factors?
 
 ---
 
-## Key Results
+# ❓ Research Question
 
-### Specification Curve Analysis
+## Does religious composition independently explain environmental outcomes?
 
-![Specification Curve](outputs/figures/specification_curve_ordered.png)
+Environmental outcomes differ substantially between countries.
 
-*Red points indicate p < 0.05 (statistically significant). Gray points indicate p ≥ 0.05 (not significant). Error bars show 95% confidence intervals.*
+These differences are often discussed through cultural or religious explanations.
 
-### Regression Summary
+However, countries also differ in:
 
-| Model | Specification | Muslim Coef | p-value | R² |
-|-------|--------------|-------------|---------|-----|
-| S1 | Muslim only | -0.0019 | 0.313 | 0.007 |
-| S2 | + GDP per capita | 0.0025 | 0.004 | 0.785 |
-| S3 | + GDPpc + Energy | 0.0015 | **0.039** | 0.841 |
-| S4 | + GDP + Pop | 0.0025 | 0.004 | 0.785 |
-| S5 | + GDP + Pop + Energy | 0.0014 | 0.055 | 0.843 |
-| **S6** | **+ Region FE** | **-0.0003** | **0.711** | **0.855** |
-| S7 | Total CO2 + GDPpc + Energy | 0.0087 | 0.010 | 0.335 |
-| **S8** | **Total CO2 + GDP + Pop + Energy** | **0.0029** | **0.018** | **0.930** |
-| **S9** | **Muslim_pop (absolute)** | **0.0010** | **0.955** | **0.927** |
-| S10 | Total CO2 + Region FE | 0.0011 | 0.794 | 0.492 |
+- Economic development
+- Energy consumption patterns
+- Industrial structure
+- Population size
+- Geography
+- Historical development
 
-### Robustness Checks
 
-| Check | Result |
-|-------|--------|
-| Oil-exporting status | Muslims p: 0.039 → 0.083 |
-| Clustered SE (Region, N=6) | HC3 p: 0.055 → Cluster p: 0.037 |
+This project asks:
+
+> Does the association between Muslim population share and CO₂ emissions remain after controlling for structural factors?
 
 ---
 
-## Motivation
+# 🧪 Research Design
 
-Environmental outcomes are often discussed in relation to cultural and religious differences. However, cross-national comparisons risk confusing cultural composition with economic development, geography, and energy structures.
 
-This project investigates whether the observed relationship between religious composition and CO₂ emissions remains after systematically controlling for these structural factors.
+```mermaid
+flowchart TD
 
----
+A[Religious Composition<br>Muslim Population Share]
 
-## Technical Stack
+A --> B[Observed Cross-National<br>CO₂ Association]
 
-### Programming
-- Python
-- Pandas
-- NumPy
-- Statsmodels
-- Matplotlib
+B --> C[Economic Structure<br>GDP Development]
 
-### Statistical Methods
-- Ordinary Least Squares Regression
-- Robust Standard Errors (HC3)
-- Clustered Standard Errors
-- Fixed Effects Models
-- Specification Curve Analysis
+B --> D[Energy System<br>Energy Consumption]
 
-### Data Sources
-- Pew Research Center
-- World Bank Development Indicators
-- Environmental Performance Index
+B --> E[Regional Factors<br>Geography & History]
 
-### Research Practices
-- Reproducible analysis pipeline
-- Version control with Git
-- Transparent robustness evaluation
 
----
+C --> F[Environmental Outcome<br>CO₂ Emissions]
+D --> F
+E --> F
+📊 Key Results
+Specification Curve Analysis
 
-## How to Reproduce
+Red points indicate:
+p < 0.05
 
-```bash
-# 1. Clone the repository
+Gray points indicate:
+p ≥ 0.05
+
+Error bars represent 95% confidence intervals.
+
+📈 Regression Summary
+Model	Specification	Muslim Coef	p-value	R²
+S1	Muslim only	-0.0019	0.313	0.007
+S2	+ GDP per capita	0.0025	0.004	0.785
+S3	+ GDPpc + Energy	0.0015	0.039	0.841
+S4	+ GDP + Population	0.0025	0.004	0.785
+S5	+ GDP + Population + Energy	0.0014	0.055	0.843
+⭐ S6	+ Regional Fixed Effects	-0.0003	0.711	0.855
+S7	Total CO₂ + GDPpc + Energy	0.0087	0.010	0.335
+⭐ S8	Total CO₂ + GDP + Population + Energy	0.0029	0.018	0.930
+⭐ S9	Absolute Muslim Population	0.0010	0.955	0.927
+S10	Total CO₂ + Regional FE	0.0011	0.794	0.492
+⭐ Most Important Statistical Result
+Regional Fixed Effects
+Model	Muslim Coefficient	p-value
+GDP + Energy	0.0015	0.039
++ Regional Fixed Effects	-0.0003	0.711
+Interpretation
+
+After accounting for regional differences:
+
+The relationship between Muslim population share and CO₂ emissions disappears statistically.
+
+This indicates that regional and structural factors explain a substantial portion of the observed cross-country association.
+
+However, regional controls may also absorb historically meaningful pathways connecting:
+
+Culture
+Institutions
+Development patterns
+
+Therefore, the result should be interpreted as evidence against a simple independent religious effect rather than proof that religion has no influence.
+
+🛡️ Robustness Checks
+Test	Result
+Oil-exporting status	p-value: 0.039 → 0.083
+Regional clustered SE	HC3 p-value: 0.055 → Cluster p-value: 0.037
+Interpretation
+
+Adding oil-exporting status reduces the estimated association.
+
+This suggests:
+
+Energy-related economic structures partially explain the observed relationship.
+
+Clustered standard errors produce stronger significance, but interpretation requires caution because only six regional clusters are available.
+
+🤖 Predictive Robustness Analysis
+Integrating Econometric and Machine Learning Approaches
+
+Machine learning models were applied as supplementary predictive tools.
+
+The goal was not causal inference.
+
+Instead, the analysis tested:
+
+Does religious composition provide additional predictive information beyond structural variables?
+
+Included predictors:
+
+Energy consumption
+Economic development
+Population scale
+Religious composition
+
+Methods:
+
+Ridge Regression
+
+Evaluates linear relationships while reducing overfitting risk.
+
+Random Forest Regression
+
+Captures nonlinear relationships and interactions.
+
+K-Fold Cross Validation
+
+Estimates out-of-sample prediction performance.
+
+Feature Ablation Analysis
+
+Measures the marginal contribution of Muslim population share.
+
+📊 Machine Learning Results
+Model	Cross-Validated R²
+Ridge Regression	0.8198 ± 0.034
+Random Forest	0.8993 ± 0.040
+Random Forest without Muslim Share	0.9014 ± 0.040
+🔬 Feature Ablation Result
+
+Removing Muslim population share:
+
+ΔR² = -0.0021
+
+Interpretation:
+
+Removing religious composition slightly improved predictive performance.
+
+This suggests that Muslim population share provides limited additional predictive information once structural variables are included.
+
+Feature importance analysis showed:
+
+High contribution:
+
+Energy consumption
+Economic variables
+
+Lower contribution:
+
+Religious composition
+
+Because the dataset contains only 156 countries, machine learning results are interpreted as supplementary robustness evidence.
+
+🌎 Motivation
+
+Environmental outcomes are frequently discussed in relation to cultural and religious differences.
+
+However, cross-national comparisons risk confusing:
+
+Cultural composition
+Economic development
+Historical factors
+Energy systems
+Geographic structures
+
+This project investigates whether observed relationships remain after accounting for these structural factors.
+
+🛠️ Technical Stack
+Programming
+Python
+Pandas
+NumPy
+Statsmodels
+Matplotlib
+Scikit-learn
+Econometric Methods
+Ordinary Least Squares Regression
+HC3 Robust Standard Errors
+Clustered Standard Errors
+Regional Fixed Effects
+Specification Curve Analysis
+Machine Learning Methods
+Ridge Regression
+Random Forest Regression
+K-Fold Cross Validation
+Feature Ablation Analysis
+Predictive Performance Comparison
+📚 Data Sources
+Religious Composition
+Pew Research Center
+Economic and Demographic Data
+World Bank Development Indicators
+Environmental Data
+Our World in Data CO₂ Dataset
+Environmental Performance Index
+🔄 Research Practices
+
+This project follows reproducible research principles:
+
+✅ Transparent data processing pipeline
+
+✅ Version-controlled analysis
+
+✅ Documented variables
+
+✅ Reproducible scripts
+
+✅ Robustness-oriented evaluation
+
+🚀 How to Reproduce
+# Clone repository
+
 git clone https://github.com/yubi-26/religion-environment-gap-analysis.git
+
 cd religion-environment-gap-analysis
 
-# 2. Install dependencies
+
+# Install dependencies
+
 pip install -r requirements.txt
 
-# 3. Run analysis
+
+# Run main specification analysis
+
 python src/05_specification_curve_analysis.py
 
-# 4. Run robustness checks
+
+# Run robustness checks
+
 python src/06_robustness_checks.py
-Repository Structure
+📂 Repository Structure
+religion-environment-gap-analysis/
+
 ├── data/
-│   ├── raw/              # Original data
-│   └── processed/        # Cleaned data
+│   ├── raw/
+│   │   └── Original datasets
+│   └── processed/
+│       └── Cleaned datasets
+│
+
 ├── src/
 │   ├── 01_data_loader.py
 │   ├── ...
 │   ├── 05_specification_curve_analysis.py
 │   └── 06_robustness_checks.py
+│
+
 ├── outputs/
-│   ├── tables/           # Results tables
-│   └── figures/          # Figures
+│   ├── tables/
+│   └── figures/
+│
+
 ├── paper/
-│   └── paper_draft.md    # Paper draft
-├── research_notes.md     # Research notes
-├── data_dictionary.md    # Variable descriptions
-└── README.md             # This file
-Limitations
-Cross-sectional data → no causal inference
+│   └── paper_draft.md
+│
 
-Muslim share is not religious intensity
+├── research_notes.md
+│
 
-Only 6 region clusters for clustered SE (use caution)
+├── data_dictionary.md
+│
 
-Limited to 156 countries
+└── README.md
+⚠️ Limitations
+Cross-sectional Data
 
-License
-MIT
+The analysis uses data from a single year (2020).
 
----
+Therefore:
 
-# 📄 paper/paper_draft.md（完全版）
+The results identify statistical associations rather than causal effects.
 
-```markdown
-# Religious Composition and Environmental Outcomes:
-## A Specification Curve Analysis of Religion, Economic Structure, and CO₂ Emissions
+Religious Measurement
 
----
+Muslim population share measures demographic composition.
 
-# Abstract
+It does not capture:
 
-This study investigates the relationship between religious composition and CO₂ emissions using cross-national data from 156 countries in 2020. Specifically, we examine whether Muslim population share is associated with national CO₂ emissions after controlling for economic development, demographic structure, energy consumption, and regional characteristics.
+Religious intensity
+Individual beliefs
+Environmental attitudes
+Religious institutions
+Regional Fixed Effects
 
-Rather than relying on a single regression specification, we employ a **specification curve analysis** across ten model specifications. The results reveal substantial sensitivity of the estimated relationship to model choice. Positive associations between Muslim population share and CO₂ emissions appear in several specifications controlling for GDP and energy consumption (p < 0.05). However, the association becomes statistically insignificant when regional fixed effects are introduced (p = 0.711). Furthermore, measurement choice substantially affects inference: Muslim population share remains significant in one specification (p = 0.018), whereas absolute Muslim population size is not significant (p = 0.955).
+Regional controls improve robustness but may absorb historical pathways connecting:
 
-Additional robustness analyses show that controlling for oil-exporting status reduces the magnitude and significance of the Muslim population coefficient, suggesting that energy-based economic structures partially contribute to the observed relationship. Clustered standard errors by region produce somewhat stronger statistical significance, although this result should be interpreted cautiously due to the limited number of clusters.
+Culture
+Institutions
+Development
+Clustered Inference
 
-> **These findings suggest that the observed association is largely explained by regional economic, demographic, and energy structures rather than providing evidence of a direct causal effect of religious composition.**
+Only six regional clusters are available.
 
----
+Clustered standard errors should therefore be interpreted cautiously.
 
-# 1. Introduction
+🎯 Conclusion
 
-Climate change is one of the most pressing global challenges, with CO₂ emissions as a primary driver. Understanding the determinants of cross-national variation in emissions is critical for designing effective environmental policies. While economic development and energy consumption are well-established predictors, the role of cultural and religious factors remains debated.
+This study examined whether Muslim population share predicts CO₂ emissions across 156 countries.
 
-Some scholars argue that religious values shape environmental attitudes and behaviors (e.g., stewardship ethics, views on nature). Others contend that economic and institutional structures are more important than cultural factors. However, empirical evidence on the relationship between religious composition and environmental outcomes is limited and often suffers from omitted variable bias.
+Using:
 
-This study addresses this gap by examining whether Muslim population share predicts CO₂ emissions after controlling for economic, demographic, and regional factors. We employ specification curve analysis—a systematic approach that estimates models across all reasonable specifications—to assess the robustness of the relationship.
+Specification Curve Analysis
+Econometric Robustness Testing
+Machine Learning Validation
 
----
+the results show that the relationship is highly sensitive to:
 
-## Research Question
+Model specification
+Variable definition
+Regional controls
 
-> Does Muslim population share predict CO₂ emissions after controlling for economic development, demographic structure, energy consumption, and regional characteristics?
+Positive associations appear in some models.
 
----
+However:
 
-# 2. Data and Methods
+These associations disappear after accounting for regional differences.
 
-## 2.1 Data
+Machine learning analysis further suggests that religious composition provides limited additional predictive information beyond structural variables, especially energy-related factors.
 
-This study combines cross-national datasets from multiple sources:
+Overall:
 
-- **Religious composition**: Pew Research Center global religious composition estimates
-- **Economic and demographic indicators**: World Bank indicators
-- **Environmental indicators**: Environmental Performance Index (EPI), CO₂ emissions data
+Environmental outcomes should not be attributed directly to religious composition without considering broader economic, demographic, energy, and institutional structures.
 
-The final dataset contains:
-- 156 countries
-- Year: 2020
+This project demonstrates the importance of transparency and robustness analysis when studying complex relationships between culture and environmental outcomes.
 
----
+📄 License
 
-## 2.2 Variables
-
-### Dependent Variables
-
-Two environmental outcomes are examined:
-
-**Model group 1:** Log CO₂ emissions per capita
-log(CO₂ / population)
-
-**Model group 2:** Log total CO₂ emissions
-log(CO₂)
-
-
-The second specification group tests whether results are driven by national emission scale rather than individual environmental impact.
-
----
-
-### Main Independent Variable
-
-**Muslim population share:** Percentage of population identifying as Muslim.
-
-This variable captures religious composition rather than individual religious behavior or intensity.
-
----
-
-### Alternative Measurement
-
-To test measurement sensitivity:
-
-**Muslim population size:** Absolute number of Muslim residents.
-
-This distinction allows examination of whether results reflect religious composition or simply population scale.
-
----
-
-### Control Variables
-
-| Category | Variables |
-|----------|-----------|
-| Economic | log GDP per capita, log total GDP |
-| Demographic | log population |
-| Energy | energy consumption per capita |
-| Structural | oil-exporting status |
-| Fixed Effects | regional fixed effects |
-
----
-
-## 2.3 Specification Curve Design
-
-Ten regression specifications were estimated.
-
-| Model | Dependent | Muslim Var | Controls | Purpose |
-|-------|-----------|------------|----------|---------|
-| S1 | CO₂ per capita | Share | None | Baseline association |
-| S2 | CO₂ per capita | Share | GDP per capita | Economic adjustment |
-| S3 | CO₂ per capita | Share | GDPpc + Energy | Energy adjustment |
-| S4 | CO₂ per capita | Share | GDP + Population | Scale adjustment |
-| S5 | CO₂ per capita | Share | GDP + Pop + Energy | Full controls |
-| **S6** | **CO₂ per capita** | **Share** | **GDPpc + Energy + Region FE** | **Regional structure** |
-| S7 | Total CO₂ | Share | GDPpc + Energy | Emission scale |
-| **S8** | **Total CO₂** | **Share** | **GDP + Pop + Energy** | **Full scale controls** |
-| **S9** | **Total CO₂** | **Absolute Muslim pop** | **GDP + Pop + Energy** | **Measurement test** |
-| S10 | Total CO₂ | Share | GDPpc + Energy + Region FE | Regional robustness |
-
----
-
-# 3. Results
-
-## 3.1 Specification Curve Analysis
-
-Figure 1 presents the estimated Muslim population coefficient across ten specifications.
-
-The coefficients range from:
--0.0019 to +0.0087
-
-
-Among the ten specifications:
-- Significant: 5 models
-- Non-significant: 5 models
-
-The estimated relationship is therefore **highly sensitive to model design**.
-
----
-
-## 3.2 Effect of Regional Fixed Effects
-
-The most important change occurs when regional fixed effects are introduced.
-
-| Model | Muslim coefficient | p-value |
-|-------|-------------------|---------|
-| S3 (GDPpc + Energy) | 0.0015 | **0.039** |
-| **S6 (+ Region FE)** | **-0.0003** | **0.711** |
-
-After accounting for regional differences, the association disappears.
-
-This indicates that regional characteristics explain a substantial portion of the observed relationship. However, regional fixed effects may also absorb mechanisms through which religion and historical development interact with environmental outcomes. Therefore, the result should be interpreted as evidence against a simple independent cross-national religious effect rather than definitive proof of no religious influence.
-
----
-
-## 3.3 Measurement Sensitivity: Share vs Population Size
-
-A major finding is that measurement choice changes the conclusion.
-
-| Model | Muslim Variable | p-value |
-|-------|-----------------|---------|
-| **S8** | Muslim population **share** | **0.018** ✅ |
-| **S9** | Absolute Muslim population **count** | **0.955** ❌ |
-
-Although the share measure remains significant, population size does not.
-
-This suggests that the relationship is not simply driven by the absolute number of Muslims, but by how religious composition is distributed across countries.
-
----
-
-## 3.4 Oil-Exporting Status
-
-Oil-exporting status was examined as a potential mechanism.
-
-| Model | Muslims coefficient |
-|-------|-------------------|
-| Without oil control | p = 0.039 |
-| With oil control | p = 0.083 |
-
-Adding oil-exporting status reduces the coefficient magnitude:
-0.0015 → 0.0012
-
-This suggests that energy-based economic structures partially contribute to the observed association.
-
-However, oil-exporting status itself is not statistically significant:
-p = 0.339
-
-
-Therefore, oil dependence alone cannot fully explain the relationship.
-
----
-
-## 3.5 Clustered Standard Errors
-
-To account for possible correlation among countries within the same region:
-
-| Standard Error | p-value |
-|----------------|---------|
-| HC3 robust SE | 0.055 |
-| Region clustered SE | 0.037 |
-
-The estimated relationship becomes statistically significant under clustered inference.
-
-> **However, interpretation requires caution because the analysis contains only six regional clusters, which limits reliability of cluster-based inference. Therefore, clustered standard errors are treated as a robustness check rather than the primary inference strategy.**
-
----
-
-# 4. Discussion
-
-## 4.1 Main Interpretation
-
-The evidence does not support a simple interpretation that religious composition directly determines environmental outcomes.
-
-Instead, the relationship between Muslim population share and CO₂ emissions appears to depend strongly on:
-
-1. Regional structure
-2. Economic development patterns
-3. Energy systems
-4. Variable measurement choices
-
-The disappearance of significance after regional fixed effects suggests that geographical and structural factors are central explanations.
-
----
-
-## 4.2 Contribution
-
-This study contributes in three ways.
-
-**First,** it demonstrates the importance of specification uncertainty. A single regression model can produce misleading conclusions when alternative reasonable specifications produce different results.
-
-**Second,** it highlights measurement sensitivity. Using religious share and absolute population size leads to different conclusions.
-
-**Third,** it provides a more cautious framework for studying cultural-environmental relationships. Rather than asking:
-
-> Does religion cause environmental outcomes?
-
-A more appropriate question may be:
-
-> Under what economic and institutional conditions do religious compositions become associated with environmental outcomes?
-
----
-
-## 4.3 Limitations
-
-This study has several limitations.
-
-**Cross-sectional design:** Because the analysis uses data from one year, causal inference is not possible. The results identify statistical associations rather than causal effects.
-
-**Religious measurement:** Muslim population share captures demographic composition, not religious beliefs, environmental attitudes, or individual behavior.
-
-**Regional fixed effects:** Region fixed effects remove substantial regional variation but may also absorb historically meaningful pathways linking culture, institutions, and development.
-
-**Cluster inference:** Only six regional clusters are available, requiring cautious interpretation of clustered standard errors.
-
----
-
-# 5. Conclusion
-
-This study examined whether Muslim population share predicts CO₂ emissions using specification curve analysis across ten model specifications.
-
-The results show that the relationship is **highly specification-dependent**. Positive associations appear in several models controlling for GDP and energy consumption. However, these associations disappear when regional fixed effects are introduced. Furthermore, changing the measurement of Muslim population from share to absolute population size substantially changes statistical inference.
-
-> **Overall, the findings suggest that observed relationships between religious composition and CO₂ emissions are strongly intertwined with regional economic, demographic, and energy structures. These results caution against attributing environmental outcomes directly to religious composition without considering broader structural contexts.**
-
-The study demonstrates that specification transparency and robustness analysis are essential when examining complex relationships between culture and environmental outcomes.
-
----
-
-# References
-
-1. World Bank. (2020). *World Development Indicators*. Washington, DC: World Bank Group.
-
-2. Pew Research Center. (2020). *Religious Composition by Country, 2010-2050*. Washington, DC: Pew Research Center.
-
-3. Wendling, Z. A., Emerson, J. W., de Sherbinin, A., & Esty, D. C. (2020). *2020 Environmental Performance Index*. New Haven, CT: Yale Center for Environmental Law & Policy.
-
-4. Sachs, J. D., & Warner, A. M. (2001). The curse of natural resources. *European Economic Review*, 45(4-6), 827-838.
-
-5. Inglehart, R., & Baker, W. E. (2000). Modernization, cultural change, and the persistence of traditional values. *American Sociological Review*, 65(1), 19-51.
-
-6. Franzen, A., & Vogl, D. (2013). Two decades of measuring environmental attitudes: A comparative analysis of 33 countries. *Global Environmental Change*, 23(5), 1001-1008.
-
-7. Givens, J. E., & Jorgenson, A. K. (2013). Individual environmental concern in the world polity: A multilevel analysis. *Social Science Research*, 42(2), 418-431.
-
----
-
-# Tables and Figures
-
-## Table 1. Regression Results
-
-| Model | Muslim Coef | p-value | R² | Significant? |
-|-------|-------------|---------|-----|--------------|
-| S1 | -0.0019 | 0.313 | 0.007 | ❌ |
-| S2 | 0.0025 | 0.004 | 0.785 | ✅ |
-| S3 | 0.0015 | 0.039 | 0.841 | ✅ |
-| S4 | 0.0025 | 0.004 | 0.785 | ✅ |
-| S5 | 0.0014 | 0.055 | 0.843 | ❌ |
-| **S6** | **-0.0003** | **0.711** | **0.855** | **❌** |
-| S7 | 0.0087 | 0.010 | 0.335 | ✅ |
-| **S8** | **0.0029** | **0.018** | **0.930** | **✅** |
-| **S9** | **0.0010** | **0.955** | **0.927** | **❌** |
-| S10 | 0.0011 | 0.794 | 0.492 | ❌ |
-
----
-
-## Figure 1. Specification Curve
-
-![Specification Curve](../outputs/figures/specification_curve_ordered.png)
-
-*Note: Red points indicate p < 0.05 (statistically significant). Gray points indicate p ≥ 0.05 (not significant). Error bars show 95% confidence intervals.*
-📄 requirements.txt
-pandas>=1.5.0
-numpy>=1.23.0
-statsmodels>=0.13.0
-matplotlib>=3.5.0
-scipy>=1.9.0
-scikit-learn>=1.0.0
-jupyter>=1.0.0
-📄 LICENSE（MIT）
 MIT License
 
 Copyright (c) 2026
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-📄 data_dictionary.md
-# Data Dictionary
-
-## Environmental Variables (EPI)
-
-| Variable | Meaning | Source |
-|----------|---------|--------|
-| epi_score | Environmental Performance Index score | EPI 2020 |
-| biodiversity_habitat | Biodiversity and Habitat index | EPI 2020 |
-| species_habitat | Species Habitat index | EPI 2020 |
-| species_protection | Species Protection Index | EPI 2020 |
-
-### Important Note
-**RLI = Red List Index (biodiversity indicator), NOT Rule of Law**
-
----
-
-## Social Variables
-
-| Variable | Meaning | Source |
-|----------|---------|--------|
-| Muslims | Muslim population share (%) | Pew Research Center |
-| gdp | GDP (current USD) | World Bank |
-| population | Total population | World Bank |
-| energy_per_capita | Energy consumption per capita | World Bank |
-
----
-
-## Dependent Variables
-
-| Variable | Calculation | Source |
-|----------|-------------|--------|
-| log_co2_per_capita | log(CO₂ / population) | Our World in Data / World Bank |
-| log_total_co2 | log(total CO₂ emissions) | Our World in Data / World Bank |
-
----
-
-## Derived Variables
-
-| Variable | Calculation | Purpose |
-|----------|-------------|---------|
-| log_gdp_per_capita | log(GDP / population) | Economic development measure |
-| log_population | log(population + 1) | Demographic scale |
-| energy_per_capita_scaled | energy_per_capita / 1000 | Scaled for interpretability |
-| log_muslim_population | log((Muslims/100) × population + 1) | Absolute Muslim population |
-| oil_exporter | Binary flag | Oil-exporting status |

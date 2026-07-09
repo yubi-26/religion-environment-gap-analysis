@@ -1,0 +1,37 @@
+Task 2: 限定的ML補助分析結果
+======================================================================
+
+サンプル数: 156
+特徴量数: 5
+特徴量: ['Muslims', 'log_gdp_per_capita', 'log_population', 'energy_per_capita_scaled', 'oil_exporter']
+
+=== Ridge回帰 ===
+CV R² (平均): 0.8198
+CV R² (標準偏差): 0.0340
+
+=== Random Forest ===
+CV R² (平均): 0.8993
+CV R² (標準偏差): 0.0397
+
+=== Feature Ablation ===
+RF (全特徴量) CV R²: 0.8993 ± 0.0397
+RF (Muslims除外) CV R²: 0.9014 ± 0.0399
+Muslims追加によるR²増加: -0.0021
+
+結論: 宗教変数の追加効果は標準偏差の範囲内。統計的に意味のある改善とは言えない。
+
+=== 変数重要度（標準） ===
+                 feature  importance
+energy_per_capita_scaled    0.975751
+                 Muslims    0.010484
+          log_population    0.006843
+      log_gdp_per_capita    0.004658
+            oil_exporter    0.002263
+
+=== Permutation Importance ===
+                 feature  importance_mean  importance_std
+energy_per_capita_scaled         1.827479        0.117252
+                 Muslims         0.011818        0.004101
+          log_population         0.007285        0.002498
+      log_gdp_per_capita         0.001939        0.000306
+            oil_exporter         0.001527        0.000381
